@@ -9,7 +9,7 @@ int main(void)
     const int screenHeight = 1080;
 
     const int speed = 3;
-    const int map = 5;
+    const float map = 9.0f;
 
     InitWindow(screenWidth, screenHeight, "bushido");
 
@@ -62,16 +62,14 @@ int main(void)
 
             // once the direction vector is set
             // check map boundaries
-            if (fabs(newPosition.x) < map)
+            if (fabs(newPosition.x) < (map / 2.0f) - 0.25f - 0.05f)
             {
                 position.x = newPosition.x;
             }
-            if (fabs(newPosition.z) < map)
+            if (fabs(newPosition.z) < (map / 2.0f) - 0.25f - 0.05f)
             {
                 position.z = newPosition.z;
             }
-
-            // position = newPosition;
         }
 
         BeginDrawing();
@@ -83,20 +81,28 @@ int main(void)
         DrawCube(position, nathan.x, nathan.y, nathan.z, PURPLE);
         DrawCubeWires(position, nathan.x, nathan.y, nathan.z, WHITE);
 
-        DrawCube((Vector3){0.0f, 0.5f, -5.5f}, 10.5f, 1.0f, 0.4f, (Color){230, 41, 55, 50});
-        DrawCubeWires((Vector3){0.0f, 0.5f, -5.5f}, 10.5f, 1.0f, 0.4f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){-5.5f, 0.5f, 0.0f}, 0.4f, 1.0f, 10.5f, (Color){230, 41, 55, 50});
-        DrawCubeWires((Vector3){-5.5f, 0.5f, 0.0f}, 0.4f, 1.0f, 10.5f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){0.0f, 0.5f, 5.5f}, 10.5f, 1.0f, 0.4f, (Color){230, 41, 55, 255});
-        DrawCubeWires((Vector3){0.0f, 0.5f, 5.5f}, 10.5f, 1.0f, 0.4f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){5.5f, 0.5f, 0.0f}, 0.4f, 1.0f, 10.5f, (Color){230, 41, 55, 255});
-        DrawCubeWires((Vector3){5.5f, 0.5f, 0.0f}, 0.4f, 1.0f, 10.5f, (Color){255, 255, 255, 150});
+        DrawCube((Vector3){-1.0f, 0.5f, 1.0f}, 0.90f, 0.90f, 0.90f, BROWN);
+        DrawCubeWires((Vector3){-1.0f, 0.5f, 1.0f}, 0.90f, 0.90f, 0.90f, WHITE);
+
+        DrawCube((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, BROWN);
+        DrawCubeWires((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, WHITE);
+
+        DrawCube((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 50});
+        DrawCubeWires((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){255, 255, 255, 150});
+        DrawCube((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){230, 41, 55, 50});
+        DrawCubeWires((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){255, 255, 255, 150});
+        DrawCube((Vector3){0.0f, 0.5f, 5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 255});
+        DrawCubeWires((Vector3){0.0f, 0.5f, 5.0f}, 9.0, 1.0f, 0.9f, (Color){255, 255, 255, 150});
+        DrawCube((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){230, 41, 55, 255});
+        DrawCubeWires((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){255, 255, 255, 150});
+
+        DrawPlane((Vector3){0.0f, 0.0f, 0.0f}, (Vector2){map, map}, DARKGREEN);
 
         DrawLine3D(position, Vector3Add(position, (Vector3){3.0f, 0.0f, 0.0f}), RED);
         DrawLine3D(position, Vector3Add(position, (Vector3){0.0f, 3.0f, 0.0f}), GREEN);
         DrawLine3D(position, Vector3Add(position, (Vector3){0.0f, 0.0f, 3.0f}), BLUE);
 
-        DrawGrid(50, 0.25f);
+        DrawGrid(52, 0.25f);
 
         EndMode3D();
 
