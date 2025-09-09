@@ -11,9 +11,21 @@ int main(void)
     const int speed = 3;
     const float map = 9.0f;
 
+    size_t matrix[9][9] = {
+        {1, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 1, 1},
+    };
+
     InitWindow(screenWidth, screenHeight, "bushido");
 
-    Vector3 nathan = {0.5f, 2.0f, 0.5f};
+    Vector3 nathan = {0.45f, 1.9f, 0.45f};
     Vector3 position = {0.0f, 1.0f, 0.0f};
 
     // Define the camera to look into our 3d world
@@ -81,20 +93,31 @@ int main(void)
         DrawCube(position, nathan.x, nathan.y, nathan.z, PURPLE);
         DrawCubeWires(position, nathan.x, nathan.y, nathan.z, WHITE);
 
-        DrawCube((Vector3){-1.0f, 0.5f, 1.0f}, 0.90f, 0.90f, 0.90f, BROWN);
-        DrawCubeWires((Vector3){-1.0f, 0.5f, 1.0f}, 0.90f, 0.90f, 0.90f, WHITE);
+        // Obstacles
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                if (matrix[i][j] != 0)
+                {
+                    DrawCube((Vector3){i - (9 / 2), 0.5f, j - 4}, 0.90f, 0.90f, 0.90f, BROWN);
+                    DrawCubeWires((Vector3){i - (9 / 2), 0.5f, j - 4}, 0.90f, 0.90f, 0.90f, WHITE);
+                }
+            }
+        }
 
-        DrawCube((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, BROWN);
-        DrawCubeWires((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, WHITE);
+        // DrawCube((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, BROWN);
+        // DrawCubeWires((Vector3){2.0f, 0.5f, 3.0f}, 0.90f, 0.90f, 0.90f, WHITE);
 
-        DrawCube((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 50});
-        DrawCubeWires((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){230, 41, 55, 50});
-        DrawCubeWires((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){0.0f, 0.5f, 5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 255});
-        DrawCubeWires((Vector3){0.0f, 0.5f, 5.0f}, 9.0, 1.0f, 0.9f, (Color){255, 255, 255, 150});
-        DrawCube((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){230, 41, 55, 255});
-        DrawCubeWires((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){255, 255, 255, 150});
+        // Boundaries
+        // DrawCube((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 50});
+        // DrawCubeWires((Vector3){0.0f, 0.5f, -5.0f}, 9.0f, 1.0f, 0.9f, (Color){255, 255, 255, 150});
+        // DrawCube((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){230, 41, 55, 50});
+        // DrawCubeWires((Vector3){-5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0f, (Color){255, 255, 255, 150});
+        // DrawCube((Vector3){0.0f, 0.5f, 5.0f}, 9.0f, 1.0f, 0.9f, (Color){230, 41, 55, 255});
+        // DrawCubeWires((Vector3){0.0f, 0.5f, 5.0f}, 9.0, 1.0f, 0.9f, (Color){255, 255, 255, 150});
+        // DrawCube((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){230, 41, 55, 255});
+        // DrawCubeWires((Vector3){5.0f, 0.5f, 0.0f}, 0.9f, 1.0f, 9.0, (Color){255, 255, 255, 150});
 
         DrawPlane((Vector3){0.0f, 0.0f, 0.0f}, (Vector2){map, map}, DARKGREEN);
 
@@ -109,6 +132,7 @@ int main(void)
         DrawFPS(10, 10);
 
         DrawText(TextFormat("Position: x=%.2f y=%.2f z=%.2f", position.x, position.y, position.z), 10, 30, 12, LIME);
+        DrawText(TextFormat("[%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d]", matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3], matrix[0][4], matrix[0][5], matrix[0][6], matrix[0][7], matrix[0][8], matrix[0][9]), 10, 50, 12, LIME);
 
         EndDrawing();
     }
