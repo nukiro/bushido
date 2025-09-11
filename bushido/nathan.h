@@ -1,0 +1,34 @@
+#include <raylib.h>
+#include <raymath.h>
+
+#pragma once
+
+#define BODY (Vector3){0.5f, 2.0f, 0.5f}
+#define X_AXIS (Vector3){2.0f, 0.0f, 0.0f}
+#define Z_AXIS (Vector3){0.0f, 0.0f, 2.0f}
+
+typedef struct Nathan
+{
+    Vector3 position;
+    Vector3 body;
+} Nathan;
+
+Nathan nathan_init(Vector3 position)
+{
+    Nathan n = {0};
+    n.position = position;
+    n.body = BODY;
+
+    return n;
+}
+
+void nathan_render(Nathan nathan)
+{
+    DrawCapsuleWires(nathan.position, Vector3Add(nathan.position, (Vector3){0.0f, nathan.body.y, 0.0f}), nathan.body.x, 8, 8, PURPLE);
+
+#ifdef DEBUG
+    Vector3 from = Vector3Add(nathan.position, (Vector3){0.0f, nathan.body.y / 2, 0.0f});
+    DrawLine3D(from, Vector3Add(from, X_AXIS), RED);
+    DrawLine3D(from, Vector3Add(from, Z_AXIS), RED);
+#endif
+}

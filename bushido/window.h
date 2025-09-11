@@ -1,6 +1,10 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "scene.h"
+#include "nathan.h"
+#include "camera.h"
+
 #pragma once
 
 #define SCREEN_WIDTH 1920
@@ -13,22 +17,18 @@ void window_init()
     SetTargetFPS(FPS);
 }
 
-void window_loop(void (*update)(float), void (*render)(Camera3D camera))
+void window_loop(void (*update)(Scene *, Camera3D *, float), void (*render)(const Scene, const Camera3D camera))
 {
-    Vector3 nathan = {1.0f, 0.0f, 1.0f};
+    Scene scene = scene_init();
+    scene.nathan = nathan_init((Vector3){1.0f, 0.0f, 1.0f});
 
-    Camera3D camera = {0};
-    camera.position = Vector3Add(nathan, (Vector3){-10.0f, 10.0f, -10.0f});
-    camera.target = Vector3Add(nathan, (Vector3){0.0f, 1.0f, 0.0f});
-    camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-    camera.fovy = 10.0f;
-    camera.projection = CAMERA_ORTHOGRAPHIC;
+    Camera3D camera = camera_init(&scene);
 
     while (!WindowShouldClose())
     {
         float dt = GetFrameTime();
-        update(dt);
-        render(camera);
+        update(&scene, &camera, dt);
+        render(scene, camera);
     }
 }
 
