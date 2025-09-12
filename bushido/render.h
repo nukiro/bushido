@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "types.h"
 #include "scene.h"
 #include "nathan.h"
 
@@ -15,12 +16,12 @@ void render_origin()
     DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){-0.5f, 0.0f, 1.0f}, WHITE);
 }
 
-void render_dev_tools(Scene scene)
+void render_dev_tools(NavigationScene scene)
 {
     DrawText(TextFormat("Nathan: x=%.2f z=%.2f", scene.nathan.position.x, scene.nathan.position.z), 10, 10, 15, LIME);
 }
 
-void render(Scene scene, Camera3D camera)
+void render(NavigationScene scene, Camera3D camera)
 {
     BeginDrawing();
     ClearBackground(COLOR_BACKGROUND);

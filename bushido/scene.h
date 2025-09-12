@@ -1,26 +1,14 @@
 #include <raylib.h>
 
-#include "nathan.h"
-
-#include <stdio.h>
+#include "types.h"
+#include "navigation.h"
 
 #pragma once
 
-#define ACTION_MATRIX 7
-#define NAVIGATION_BOXES ACTION_MATRIX - 2
-
-typedef struct Scene
+NavigationScene scene_init()
 {
-    Nathan nathan;
-    int navigation[ACTION_MATRIX][ACTION_MATRIX];
-} Scene;
-
-Scene scene_init()
-{
-    Scene scene = {0};
-
-    scene.navigation[3][3] = 1;
-
+    NavigationScene scene = {0};
+    navigation_init(&scene);
     return scene;
 }
 
@@ -36,20 +24,35 @@ void _scene_render_obstacle(float x, float z)
     DrawCubeWires((Vector3){x, 0.5f, z}, 1.0f, 1.0f, 1.0f, (Color){255, 255, 255, 50});
 }
 
-void scene_navigation_render(Scene scene)
+int scene_navigation_at(NavigationScene scene, int x, int z)
 {
-    for (int i = 1; i <= NAVIGATION_BOXES; i++)
+    if (x < 0 || x >= NAVIGATION_X)
     {
-        for (int j = 1; j <= NAVIGATION_BOXES; j++)
+        return NAVIGATION_OUT;
+    }
+
+    if (z < 0 || z >= NAVIGATION_Z)
+    {
+        return NAVIGATION_OUT;
+    }
+
+    return scene.navigation[x][z];
+}
+
+void scene_navigation_render(NavigationScene scene)
+{
+    for (int x = 0; x < NAVIGATION_X; x++)
+    {
+        for (int z = 0; z < NAVIGATION_Z; z++)
         {
-            switch (scene.navigation[i][j])
+            switch (scene_navigation_at(scene, x, z))
             {
             case 1:
-                _scene_render_obstacle(i, j);
+                _scene_render_obstacle(x, z);
                 break;
             }
 
-            _scene_render_ground(i, j);
+            _scene_render_ground(x, z);
         }
     }
 }

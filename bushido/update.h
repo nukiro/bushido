@@ -1,12 +1,13 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "types.h"
 #include "scene.h"
 #include "config.h"
 
 #pragma once
 
-void update(Scene *scene, Camera3D *camera, float delta)
+void update(NavigationScene *scene, Camera3D *camera, float delta)
 {
     Vector3 dir = {0.0f, 0.0f, 0.0f};
     if (IsKeyDown(KEY_W))

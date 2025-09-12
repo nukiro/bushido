@@ -1,17 +1,13 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "types.h"
+
 #pragma once
 
 #define BODY (Vector3){0.5f, 2.0f, 0.5f}
 #define X_AXIS (Vector3){2.0f, 0.0f, 0.0f}
 #define Z_AXIS (Vector3){0.0f, 0.0f, 2.0f}
-
-typedef struct Nathan
-{
-    Vector3 position;
-    Vector3 body;
-} Nathan;
 
 Nathan nathan_init(Vector3 position)
 {

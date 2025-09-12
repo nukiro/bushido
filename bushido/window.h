@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "types.h"
 #include "scene.h"
 #include "nathan.h"
 #include "camera.h"
@@ -17,10 +18,10 @@ void window_init()
     SetTargetFPS(FPS);
 }
 
-void window_loop(void (*update)(Scene *, Camera3D *, float), void (*render)(const Scene, const Camera3D camera))
+void window_loop(void (*update)(NavigationScene *, Camera3D *, float), void (*render)(NavigationScene, Camera3D))
 {
-    Scene scene = scene_init();
-    scene.nathan = nathan_init((Vector3){1.0f, 0.0f, 1.0f});
+    NavigationScene scene = scene_init();
+    scene.nathan = nathan_init((Vector3){0.0f, 0.0f, 0.0f});
 
     Camera3D camera = camera_init(&scene);
 
