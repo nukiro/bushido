@@ -6,9 +6,19 @@
 
 #pragma once
 
-Scene scene_init()
+#define SCENE_FACING_NORTH 0
+#define SCENE_FACING_EAST 1
+#define SCENE_FACING_SOUTH 2
+#define SCENE_FACING_WEST 3
+
+Scene scene_init(int facing)
 {
     Scene scene = {0};
+
+    scene.facing = 0;
+    if (facing >= SCENE_FACING_NORTH && facing <= SCENE_FACING_WEST)
+        scene.facing = facing;
+
     nathan_init(&scene, 0, 0);
     navigation_init(&scene);
     return scene;

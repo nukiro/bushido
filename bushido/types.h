@@ -14,5 +14,6 @@ typedef struct Nathan
 typedef struct Scene
 {
     Nathan nathan;
+    int facing;
     int navigation[NAVIGATION_X][NAVIGATION_Z];
 } Scene;
