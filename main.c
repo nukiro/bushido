@@ -19,23 +19,40 @@ int main(void)
 
     // bool collision = false;
 
-    int matrix[11][11] = {
+    // each number in the matrix means an action into the map
+    // could be a door, stairs, obstacles, etc.
+    int action_matrix[11][11] = {
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1},
         {-1, 0, 0, 1, 0, 0, 0, 0, 0, 1, -1},
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1},
         {-1, 0, 0, 0, 0, 0, 0, 1, 1, 0, -1},
-        {-1, 1, 0, 0, 0, 0, 0, 1, 1, 0, -1},
+        {-1, 1, 0, 1, 0, 0, 0, 1, 1, 0, -1},
+        {-1, 0, 1, 0, 1, 0, 0, 0, 0, 0, -1},
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1},
-        {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1},
-        {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1},
+        {-1, 0, 1, 0, 1, 0, 0, 0, 1, 0, -1},
         {-1, 1, 0, 0, 0, 0, 0, 0, 1, 0, -1},
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
     };
 
+    // defines position where the character can move in
+    int movement_matrix[11][11] = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+        {0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0},
+        {0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
+        {0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
     InitWindow(screenWidth, screenHeight, "bushido");
 
-    // Vector3 nathana = {0.45f, 1.9f, 0.45f};
+    // Vector3 nathana = {0.45f, 0.9f, 0.45f};
     Vector3 nathan = {1.0f, 0.0f, 1.0f};
 
     // Define the camera to look into our 3d world
@@ -48,8 +65,10 @@ int main(void)
 
     SetTargetFPS(60);
 
-    // int mx = (int)nathan.x + (9 / 2);
-    // int mz = (int)nathan.x + (9 / 2);
+    int mx = (int)nathan.x;
+    int mz = (int)nathan.z;
+    int md = 0;
+    bool isThereAnObstacle = false;
 
     // Main game loop
     while (!WindowShouldClose())
@@ -79,48 +98,207 @@ int main(void)
             dir.z += 1.0f;
         }
 
-        // 2) Normalize (so diagonals aren't faster) and move once
-        if (dir.x != 0.0f || dir.z != 0.0f)
+        bool changed = false;
+
+        // heading north
+        if (dir.x == 1.0f && dir.z == 1.0f)
         {
-            dir = Vector3Normalize(dir);
-            Vector3 newPosition = Vector3Add(nathan, Vector3Scale(dir, speed * dt));
+            md = 5;
 
-            if (newPosition.x > 0)
+            if (!movement_matrix[mx][mz + 1] && !movement_matrix[mx + 1][mz] && !changed)
             {
-                nathan.x = newPosition.x;
-            }
-            if (newPosition.z > 0)
-            {
-                nathan.z = newPosition.z;
+                dir.z -= 1.0f;
+                dir.x -= 1.0f;
+                changed = true;
             }
 
-            camera.position = Vector3Add(nathan, (Vector3){-10.0f, 10.0f, -10.0f});
-            camera.target = Vector3Add(nathan, (Vector3){0.0f, 1.0f, 0.0f});
+            if (!movement_matrix[mx + 1][mz + 1] && !changed)
+            {
+                // check if we are close to the left or to the right
+                if (((float)mx - nathan.x) > ((float)mz - nathan.z) && !changed)
+                // if (mx > mz && !changed)
+                {
+                    // this is close to left
+                    // if we are close to the left continue moving to the left
+                    // that's why we substact z axis to zero to move to the left = x
+                    if (movement_matrix[mx][mz + 1] && !changed)
+                    {
+                        dir.x -= 1.0f;
+                        changed = true;
+                    }
 
-            // mx = (int)newPosition.x + (9 / 2);
-            // mz = (int)newPosition.z + (9 / 2);
+                    if (movement_matrix[mx + 1][mz] && !changed)
+                    {
+                        dir.z -= 1.0f;
+                        changed = true;
+                    }
+                }
 
-            // if (newPosition.z <= -3.0f && (newPosition.x >= -1 && newPosition.x <= 0))
-            // {
-            //     collision = true;
-            // }
-            // else
-            // {
-            //     collision = false;
-            // }
+                // check if we are close to the left or to the right
+                if (((float)mx - nathan.x) < ((float)mz - nathan.z) && !changed)
+                // if (mx < mz && !changed)
+                {
+                    // this is close to right
+                    // if we are close to the left continue moving to the left
+                    // that's why we substact z axis to zero to move to the left = x
+                    if (movement_matrix[mx + 1][mz] && !changed)
+                    {
+                        dir.z -= 1.0f;
+                        changed = true;
+                    }
+                    if (movement_matrix[mx][mz + 1] && !changed)
+                    {
+                        dir.x -= 1.0f;
+                        changed = true;
+                    }
+                }
 
-            // once the direction vector is set
-            // check map boundaries
-            // if (fabs(newPosition.x) < (map / 2.0f) - 0.25f - 0.05f)
-            // {
-            //     nathan.x = newPosition.x;
-            // }
-            // if (fabs(newPosition.z) < (map / 2.0f) - 0.25f - 0.05f)
-            // {
-            //     nathan.z = newPosition.z;
-            // }
+                // equal
+                if (((float)mx - nathan.x) == ((float)mz - nathan.z) && !changed)
+                {
+                    dir.x -= 1.0f;
+                    changed = true;
+                    // // if we are close to the left continue moving to the left
+                    // // that's why we substact z axis to zero to move to the left = x
+                    // if (movement_matrix[mx][mz + 1] && !changed)
+                    // {
+                    // }
 
-            // camera.position = Vector3Add(nathan, (Vector3){-10.0f, 10.0f, -10.0f});
+                    // if (movement_matrix[mx + 1][mz] && !changed)
+                    // {
+                    //     dir.z -= 1.0f;
+                    //     changed = true;
+                    // }
+                }
+            }
+
+            if (!movement_matrix[mx][mz + 1] && !changed)
+            {
+                dir.z -= 1.0f;
+                changed = true;
+            }
+
+            if (!movement_matrix[mx + 1][mz] && !changed)
+            {
+                dir.x -= 1.0f;
+                changed = true;
+            }
+
+            //
+
+            // md = 5;
+            // // firstly we need to know if there is an obstacle in the next position
+            // if (movement_matrix[mx + 1][mz + 1] || movement_matrix[mx][mz + 1] || movement_matrix[mx + 1][mz])
+            // {
+            //     // check if the obstacle is in front of us
+            //     if (!movement_matrix[mx + 1][mz + 1])
+            //     {
+
+            //         // check if we are close to the left or to the right
+            //         if (((float)mx - nathan.x) > ((float)mz - nathan.z))
+            //         {
+            //             // if we are close to the left continue moving to the left
+            //             // that's why we substact z axis to zero to move to the left = x
+            //             if (movement_matrix[mx][mz + 1] && !changed)
+            //             {
+            //                 dir.x -= 1.0f;
+            //                 changed = true;
+            //             }
+
+            //             if (movement_matrix[mx + 1][mz] && !changed)
+            //             {
+            //                 dir.z -= 1.0f;
+            //                 changed = true;
+            //             }
+            //         }
+
+            //         if ((mx - nathan.x) < (mz - nathan.z))
+            //         {
+            //         }
+            //     }
+            // }
+            // isThereAnObstacle = movement_matrix[mx + 1][mz + 1] && movement_matrix[mx][mz + 1] && movement_matrix[mx + 1][mz];
+            // changed = true;
+        }
+
+        // if (dir.x == 1.0f && dir.z == -1.0f && !changed)
+        // {
+        //     md = 3;
+        //     no = movement_matrix[mx - 1][mz + 1];
+        //     changed = true;
+        // }
+
+        // if (dir.x == -1.0f && dir.z == 1.0f && !changed)
+        // {
+        //     md = 5;
+        //     no = movement_matrix[mx + 1][mz - 1];
+        //     changed = true;
+        // }
+
+        if (dir.x == -1.0f && dir.z == -1.0f && !changed)
+        {
+            md = 5;
+            isThereAnObstacle = movement_matrix[mx - 1][mz - 1];
+            changed = true;
+        }
+
+        if (!changed)
+        {
+            md = 0;
+            isThereAnObstacle = 1;
+            changed = true;
+        }
+
+        if (isThereAnObstacle)
+        {
+
+            // 2) Normalize (so diagonals aren't faster) and move once
+            if (dir.x != 0.0f || dir.z != 0.0f)
+            {
+                dir = Vector3Normalize(dir);
+                nathan = Vector3Add(nathan, Vector3Scale(dir, speed * dt));
+
+                mx = (int)nathan.x;
+                mz = (int)nathan.z;
+                // Vector3 newPosition = Vector3Add(nathan, Vector3Scale(dir, speed * dt));
+
+                // if (newPosition.x > 0)
+                // {
+                //     nathan.x = newPosition.x;
+                // }
+                // if (newPosition.z > 0)
+                // {
+                //     nathan.z = newPosition.z;
+                // }
+
+                camera.position = Vector3Add(nathan, (Vector3){-10.0f, 10.0f, -10.0f});
+                camera.target = Vector3Add(nathan, (Vector3){0.0f, 1.0f, 0.0f});
+
+                // mx = (int)newPosition.x + (9 / 2);
+                // mz = (int)newPosition.z + (9 / 2);
+
+                // if (newPosition.z <= -3.0f && (newPosition.x >= -1 && newPosition.x <= 0))
+                // {
+                //     collision = true;
+                // }
+                // else
+                // {
+                //     collision = false;
+                // }
+
+                // once the direction vector is set
+                // check map boundaries
+                // if (fabs(newPosition.x) < (map / 2.0f) - 0.25f - 0.05f)
+                // {
+                //     nathan.x = newPosition.x;
+                // }
+                // if (fabs(newPosition.z) < (map / 2.0f) - 0.25f - 0.05f)
+                // {
+                //     nathan.z = newPosition.z;
+                // }
+
+                // camera.position = Vector3Add(nathan, (Vector3){-10.0f, 10.0f, -10.0f});
+            }
         }
 
         BeginDrawing();
@@ -149,12 +327,12 @@ int main(void)
         {
             for (int j = 0; j < 11; j++)
             {
-                int box = matrix[i][j];
+                int box = action_matrix[i][j];
                 if (box != 0)
                 {
                     if (box == -1)
                     {
-                        DrawCube((Vector3){i, 0.5f, j}, 0.9f, 0.9f, 0.9f, (Color){150, 150, 150, 50});
+                        DrawCube((Vector3){i, 0.5f, j}, 0.9f, 0.9f, 0.9f, (Color){50, 50, 50, 50});
                         // DrawCubeWires((Vector3){i, 0.5f, j}, 1.0f, 1.0f, 1.0f, WHITE);
                     }
                     else
@@ -202,7 +380,7 @@ int main(void)
         // DrawFPS(10, 10);
 
         DrawText(TextFormat("Position: x=%.2f y=%.2f z=%.2f", nathan.x, nathan.y, nathan.z), 10, 10, 12, LIME);
-        DrawText(TextFormat("Position Matrix: x=%d z=%d", (int)nathan.x, (int)nathan.z), 10, 30, 12, LIME);
+        DrawText(TextFormat("Position Matrix: x=%d z=%d, heading %d obstacle?: %d", mx, mz, md, isThereAnObstacle), 10, 30, 12, LIME);
         // DrawText(TextFormat("Matrix position: x=%d z=%d", mx, mz), 10, 50, 12, LIME);
         // DrawText(TextFormat("[%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d]", matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3], matrix[0][4], matrix[0][5], matrix[0][6], matrix[0][7], matrix[0][8], matrix[0][9]), 10, 70, 12, LIME);
         // DrawText(TextFormat("Matrix Collision %d", matrix[mx][mz] != 0), 10, 70, 12, LIME);
