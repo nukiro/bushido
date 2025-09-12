@@ -28,34 +28,34 @@ void render_origin()
     DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){-0.5f, 0.0f, 1.0f}, WHITE);
 }
 
-int _render_dev_position_y(int n)
+static int render_dev_position_y(int n)
 {
     return DEV_TOOL_MARGIN_Y + ((DEV_TOOL_FONT_SIZE + DEV_TOOL_SEPARATOR) * n);
 }
 
-void _render_dev_tool_compass(Scene scene)
+static void render_dev_tool_compass(Scene scene)
 {
     switch (scene.facing)
     {
     case SCENE_FACING_NORTH:
-        DrawText(N, GetScreenWidth() / 2 - MeasureText(N, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(WE, GetScreenWidth() / 2 - MeasureText(WE, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(N, GetScreenWidth() / 2 - MeasureText(N, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(WE, GetScreenWidth() / 2 - MeasureText(WE, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
         break;
     case SCENE_FACING_SOUTH:
-        DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(EW, GetScreenWidth() / 2 - MeasureText(EW, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(N, GetScreenWidth() / 2 - MeasureText(N, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(EW, GetScreenWidth() / 2 - MeasureText(EW, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(N, GetScreenWidth() / 2 - MeasureText(N, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
         break;
     case SCENE_FACING_EAST:
-        DrawText(E, GetScreenWidth() / 2 - MeasureText(E, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(NS, GetScreenWidth() / 2 - MeasureText(NS, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(W, GetScreenWidth() / 2 - MeasureText(W, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(E, GetScreenWidth() / 2 - MeasureText(E, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(NS, GetScreenWidth() / 2 - MeasureText(NS, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(W, GetScreenWidth() / 2 - MeasureText(W, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
         break;
     case SCENE_FACING_WEST:
-        DrawText(W, GetScreenWidth() / 2 - MeasureText(W, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(SN, GetScreenWidth() / 2 - MeasureText(SN, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(E, GetScreenWidth() / 2 - MeasureText(E, DEV_TOOL_FONT_SIZE) / 2, _render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(W, GetScreenWidth() / 2 - MeasureText(W, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(SN, GetScreenWidth() / 2 - MeasureText(SN, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(E, GetScreenWidth() / 2 - MeasureText(E, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
         break;
     }
 }
@@ -63,11 +63,11 @@ void _render_dev_tool_compass(Scene scene)
 void render_dev_tool(Scene scene)
 {
     // UP-LEFT
-    DrawText(TextFormat("Camera facing: %d", scene.facing), DEV_TOOL_MARGIN_X, _render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-    DrawText(TextFormat("Nathan: x=%.2f z=%.2f", scene.nathan.position.x, scene.nathan.position.z), DEV_TOOL_MARGIN_X, _render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+    DrawText(TextFormat("Camera facing: %d", scene.facing), DEV_TOOL_MARGIN_X, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
+    DrawText(TextFormat("Nathan: x=%.2f z=%.2f", scene.nathan.position.x, scene.nathan.position.z), DEV_TOOL_MARGIN_X, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
 
     // UP-RIGHT
-    _render_dev_tool_compass(scene);
+    render_dev_tool_compass(scene);
 }
 
 void render(Scene scene, Camera3D camera)
