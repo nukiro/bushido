@@ -2,6 +2,7 @@
 #include <raymath.h>
 
 #include "types.h"
+#include "navigation.h"
 
 #pragma once
 
@@ -9,13 +10,19 @@
 #define X_AXIS (Vector3){2.0f, 0.0f, 0.0f}
 #define Z_AXIS (Vector3){0.0f, 0.0f, 2.0f}
 
-Nathan nathan_init(Vector3 position)
+void nathan_init(NavigationScene *scene, int x, int z)
 {
     Nathan n = {0};
-    n.position = position;
+    n.position = (Vector3){0.0f, 0.0f, 0.0f};
+    if (navigation_at_free(*scene, x, z))
+    {
+        n.position.x = x;
+        n.position.z = z;
+    }
+
     n.body = BODY;
 
-    return n;
+    scene->nathan = n;
 }
 
 void nathan_render(Nathan nathan)

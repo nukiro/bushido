@@ -21,8 +21,6 @@ void window_init()
 void window_loop(void (*update)(NavigationScene *, Camera3D *, float), void (*render)(NavigationScene, Camera3D))
 {
     NavigationScene scene = scene_init();
-    scene.nathan = nathan_init((Vector3){0.0f, 0.0f, 0.0f});
-
     Camera3D camera = camera_init(&scene);
 
     while (!WindowShouldClose())
