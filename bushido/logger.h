@@ -32,7 +32,10 @@ static void make_timestamp(char out[32], int *msec_out)
 bool log_message(const char *fmt, ...)
 {
     if (!s_fp)
+    {
+        perror("log file not opened");
         return false;
+    }
 
     char when[32];
     int msec = 0;
@@ -61,7 +64,10 @@ bool log_open(const char *path)
 
     s_fp = fopen(path, "w");
     if (!s_fp)
+    {
+        perror("failed opening log file");
         return false;
+    }
 
     log_message("initializing game ...");
     return true;
