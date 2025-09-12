@@ -17,7 +17,7 @@ void render_origin()
 
 void render_dev_tools(Scene scene)
 {
-    DrawText(TextFormat("Nathan: x=%.2f y=%.2f z=%.2f", scene.nathan.position.x, scene.nathan.position.y, scene.nathan.position.z), 10, 10, 15, LIME);
+    DrawText(TextFormat("Nathan: x=%.2f z=%.2f", scene.nathan.position.x, scene.nathan.position.z), 10, 10, 15, LIME);
 }
 
 void render(Scene scene, Camera3D camera)
@@ -26,6 +26,8 @@ void render(Scene scene, Camera3D camera)
     ClearBackground(COLOR_BACKGROUND);
 
     BeginMode3D(camera);
+
+    scene_navigation_render();
 
     nathan_render(scene.nathan);
 

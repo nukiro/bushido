@@ -24,7 +24,7 @@ Nathan nathan_init(Vector3 position)
 
 void nathan_render(Nathan nathan)
 {
-    DrawCapsuleWires(nathan.position, Vector3Add(nathan.position, (Vector3){0.0f, nathan.body.y, 0.0f}), nathan.body.x, 8, 8, PURPLE);
+    DrawCapsuleWires(nathan.position, Vector3Add(nathan.position, (Vector3){0.0f, nathan.body.y, 0.0f}), nathan.body.x, 8, 8, (Color){255, 255, 255, 255});
 
 #ifdef DEBUG
     Vector3 from = Vector3Add(nathan.position, (Vector3){0.0f, nathan.body.y / 2, 0.0f});
