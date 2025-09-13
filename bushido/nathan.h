@@ -2,7 +2,7 @@
 #include <raymath.h>
 
 #include "types.h"
-#include "navigation.h"
+#include "map.h"
 
 #pragma once
 
@@ -14,7 +14,7 @@ void nathan_init(Scene *scene, int x, int z)
 {
     Nathan n = {0};
     n.position = (Vector3){0.0f, 0.0f, 0.0f};
-    if (navigation_at_free(*scene, x, z))
+    if (map_is_free_at(*scene, x, z))
     {
         n.position.x = x;
         n.position.z = z;
