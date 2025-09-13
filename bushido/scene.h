@@ -15,9 +15,17 @@ Scene scene_init(int facing)
 {
     Scene scene = {0};
 
-    scene.facing = 0;
+    scene.facing = SCENE_FACING_NORTH;
+
     if (facing >= SCENE_FACING_NORTH && facing <= SCENE_FACING_WEST)
         scene.facing = facing;
+
+#ifdef DEBUG
+    if (facing == -1)
+    {
+        scene.facing = -1;
+    }
+#endif
 
     nathan_init(&scene, 0, 0);
     navigation_init(&scene);
