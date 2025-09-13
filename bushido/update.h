@@ -1,3 +1,5 @@
+#pragma once
+
 #include <raylib.h>
 #include <raymath.h>
 
@@ -5,7 +7,8 @@
 #include "scene.h"
 #include "config.h"
 
-#pragma once
+#define WALK 1
+#define RUN 3
 
 void update(Scene *scene, Camera3D *camera, float delta)
 {
@@ -31,6 +34,7 @@ void update(Scene *scene, Camera3D *camera, float delta)
         dir.z += 1.0f;
     }
 
+    // if all update conditions are true, then update
     if (dir.x != 0.0f || dir.z != 0.0f)
     {
         dir = Vector3Scale(Vector3Normalize(dir), RUN * delta);

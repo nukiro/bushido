@@ -1,7 +1,7 @@
 #include <raylib.h>
 
 #include "types.h"
-#include "navigation.h"
+#include "map.h"
 #include "nathan.h"
 
 #pragma once
@@ -28,7 +28,7 @@ Scene scene_init(int facing)
 #endif
 
     nathan_init(&scene, 0, 0);
-    navigation_init(&scene);
+    map_init(&scene);
     return scene;
 }
 
@@ -53,7 +53,7 @@ void scene_navigation_render(Scene scene)
     {
         for (int z = 0; z < NAVIGATION_Z; z++)
         {
-            switch (navigation_at(scene, x, z))
+            switch (map_at(scene, x, z))
             {
             case 1:
                 scene_render_obstacle(x, z);

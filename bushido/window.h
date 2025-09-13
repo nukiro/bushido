@@ -20,7 +20,7 @@ void window_init()
 
 void window_loop(void (*update)(Scene *, Camera3D *, float), void (*render)(Scene, Camera3D))
 {
-    Scene scene = scene_init(-1);
+    Scene scene = scene_init(SCENE_FACING_NORTH);
     Camera3D camera = camera_init(&scene);
 
     while (!WindowShouldClose())
