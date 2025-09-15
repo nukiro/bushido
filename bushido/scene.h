@@ -107,3 +107,14 @@ void scene_map_render(Map map)
         }
     }
 }
+
+void scene_action(Scene *scene)
+{
+    Scene s = *scene;
+    size_t x = 0, z = 0;
+    nathan_action(scene->nathan, &x, &z);
+    int a = map_at(s.map, x, z);
+#ifdef DEBUG
+    log_info("at: x=%zu z=%zu | action: %c", x, z, a);
+#endif
+}

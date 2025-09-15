@@ -50,4 +50,9 @@ void update(Scene *scene, Camera3D *camera, float delta)
         camera->position = Vector3Add(camera->position, dir);
         camera->target = Vector3Add(camera->target, dir);
     }
+
+    if (IsKeyPressed(KEY_E))
+    {
+        scene_action(scene);
+    }
 }

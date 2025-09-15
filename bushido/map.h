@@ -18,8 +18,8 @@
 
 int map_at(Map map, size_t x, size_t z)
 {
-    if (x >= map.x || z >= map.z)
-        return MAP_NAVIGATION_OUT;
+    // if (x >= map.x || z >= map.z)
+    //     return MAP_NAVIGATION_OUT;
 
     // map.cells = row-major
     return ((map).cells[(x) * (map).z + (z)]);

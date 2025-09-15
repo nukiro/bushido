@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include <raymath.h>
+#include <math.h>
 
 #include "types.h"
 #include "logger.h"
@@ -31,4 +32,10 @@ void nathan_render(Nathan nathan)
     DrawLine3D(from, Vector3Add(from, X_AXIS), RED);
     DrawLine3D(from, Vector3Add(from, Z_AXIS), RED);
 #endif
+}
+
+void nathan_action(Nathan n, size_t *x, size_t *z)
+{
+    *x = (size_t)floor(n.position.x + 0.5);
+    *z = (size_t)floor(n.position.z + 0.5);
 }

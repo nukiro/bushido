@@ -1,5 +1,8 @@
 {
   "files.associations": {
     "*.h": "c"
+  },
+  "files.readonlyInclude": {
+    "*log": true
   }
 }
