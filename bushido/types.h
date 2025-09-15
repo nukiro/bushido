@@ -22,6 +22,8 @@ typedef struct Scene
     Nathan nathan;
     int facing;
     Map map;
+    bool is_ready;
+    bool is_done;
 } Scene;
 
 typedef struct Game

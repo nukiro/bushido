@@ -5,6 +5,7 @@
 
 #include "types.h"
 #include "logger.h"
+#include "game.h"
 
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
@@ -24,8 +25,28 @@ void window_loop(Game *game, void (*update)(Scene *, Camera3D *, float), void (*
     while (!WindowShouldClose())
     {
         float dt = GetFrameTime();
-        update(sp, cp, dt);
-        render(*sp, *cp);
+        if (sp->is_ready && sp->is_done)
+        {
+            game_close_scene(game);
+            game_init_scene(game, "A0002");
+        }
+
+        if (sp->is_ready && !sp->is_done)
+        {
+            update(sp, cp, dt);
+            render(*sp, *cp);
+        }
+        else
+        {
+            BeginDrawing();
+            ClearBackground((Color){25, 25, 25, 1});
+
+            BeginMode3D(*cp);
+
+            EndMode3D();
+
+            EndDrawing();
+        }
     }
 }
 

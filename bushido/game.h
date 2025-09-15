@@ -21,8 +21,14 @@ Game game_init()
     return g;
 }
 
-void game_close(Game *game)
+void game_close_scene(Game *game)
 {
-
     scene_free(&game->scene);
+}
+
+void game_init_scene(Game *g, const char *code)
+{
+    g->code = code;
+    g->scene = scene_init(*g, SCENE_FACING_NORTH);
+    g->camera = camera_init(&g->scene);
 }

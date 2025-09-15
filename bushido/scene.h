@@ -48,6 +48,10 @@ Scene scene_init(Game game, int facing)
     log_info("scene facing: %d", scene.facing);
 
     map_init(&scene);
+
+    scene.is_ready = true;
+    scene.is_done = false;
+
     return scene;
 }
 
@@ -61,6 +65,7 @@ void scene_free(Scene *scene)
     // deallocate path
     free((void *)scene->path);
     scene->path = NULL;
+    scene->is_ready = false;
 }
 
 static void scene_render_ground(float x, float z)
@@ -117,4 +122,11 @@ void scene_action(Scene *scene)
 #ifdef DEBUG
     log_info("at: x=%zu z=%zu | action: %c", x, z, a);
 #endif
+
+    switch (a)
+    {
+    case MAP_NAVIGATION_DOOR:
+        scene->is_done = true;
+        return;
+    }
 }
