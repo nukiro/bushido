@@ -1,38 +1,32 @@
+#pragma once
+
 #include <raylib.h>
 #include <raymath.h>
 
 #include "types.h"
-#include "scene.h"
-#include "nathan.h"
-#include "camera.h"
-#include "map.h"
 #include "logger.h"
-
-#pragma once
 
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 #define FPS 60
 
-void window_init()
+void window_init(Game game)
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "武士道");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, game.title);
     SetTargetFPS(FPS);
 }
 
-void window_loop(void (*update)(Scene *, Camera3D *, float), void (*render)(Scene, Camera3D))
+void window_loop(Game *game, void (*update)(Scene *, Camera3D *, float), void (*render)(Scene, Camera3D))
 {
-    Scene scene = scene_init(SCENE_FACING_NORTH);
-    Camera3D camera = camera_init(&scene);
+    Scene *sp = &game->scene;
+    Camera3D *cp = &game->camera;
 
     while (!WindowShouldClose())
     {
         float dt = GetFrameTime();
-        update(&scene, &camera, dt);
-        render(scene, camera);
+        update(sp, cp, dt);
+        render(*sp, *cp);
     }
-
-    map_free(&scene.map);
 }
 
 void window_close()

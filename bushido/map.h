@@ -8,6 +8,7 @@
 #include "types.h"
 #include "logger.h"
 #include "returncode.h"
+#include "nathan.h"
 
 #define MAP_NAVIGATION_OUT 'X'
 #define MAP_NAVIGATION_FREE '.'
@@ -50,18 +51,19 @@ void map_free(Map *m)
     free(m->cells);
     m->cells = NULL;
     m->x = m->z = 0;
+    m->max_x = m->max_z = 0;
 }
 
 #define MAP_AT(m, x, z) ((m).cells[(x) * (m).z + (z)])
-rc map_loader(Scene *scene, const char *path, char pad)
+rc map_loader(Scene *scene, char pad)
 {
     rc rc = RC_OK;
     // open file in read mode
-    FILE *fp = fopen(path, "r");
+    FILE *fp = fopen(scene->path, "r");
     if (!fp)
     {
         rc = RC_FILE_NOT_OPEN;
-        log_error("%s => path(%s)", rc_str(rc), path);
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
         return rc;
     }
 
@@ -72,9 +74,21 @@ rc map_loader(Scene *scene, const char *path, char pad)
         // close file opened previously
         fclose(fp);
         rc = RC_MAP_HEADER_NOT_FOUND;
-        log_error("%s => path(%s)", rc_str(rc), path);
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
         return rc;
     }
+
+    // find nathan initial position
+    size_t nx, nz;
+    if (fscanf(fp, "%zu %zu", &nx, &nz) != 2)
+    {
+        // close file opened previously
+        fclose(fp);
+        rc = RC_MAP_HEADER_NOT_FOUND;
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
+        return rc;
+    }
+    nathan_init(scene, nx, nz);
 
     int ch;
     while ((ch = fgetc(fp)) != '\n' && ch != EOF)
@@ -94,7 +108,7 @@ rc map_loader(Scene *scene, const char *path, char pad)
         // close file opened previously
         fclose(fp);
         rc = RC_MAP_CELLS_NOT_FOUND;
-        log_error("%s => path(%s)", rc_str(rc), path);
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
         return rc;
     }
 
@@ -120,11 +134,11 @@ rc map_loader(Scene *scene, const char *path, char pad)
     free(line);
     fclose(fp);
 
-    log_info("map loaded => %s", path);
+    log_info("map loaded => %s", scene->path);
     return rc;
 }
 
 rc map_init(Scene *scene)
 {
-    return map_loader(scene, "map.txt", ' ');
+    return map_loader(scene, ' ');
 }

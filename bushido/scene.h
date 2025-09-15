@@ -12,11 +12,27 @@
 #define SCENE_FACING_SOUTH 2
 #define SCENE_FACING_WEST 3
 
-Scene scene_init(int facing)
+Scene scene_init(Game game, int facing)
 {
-    log_info("initializing scene...");
+    log_info("init scene: %s", game.code);
     Scene scene = {0};
     scene.map = (Map){0};
+
+    size_t la = strlen(game.path), lb = strlen(game.code);
+    char *buf = malloc(la + lb + 1);
+    if (buf)
+    {
+
+        memcpy(buf, game.path, la);
+        memcpy(buf + la, game.code, lb);
+        buf[la + lb] = '\0';
+
+        scene.path = buf; // OK: char* -> const char* (adds const)
+    }
+    else
+        log_error("%s => scene init path", rc_str(RC_MALLOC));
+
+    log_info("scene path => %s", scene.path);
 
     scene.facing = SCENE_FACING_NORTH;
 
@@ -31,9 +47,20 @@ Scene scene_init(int facing)
 #endif
     log_info("scene facing: %d", scene.facing);
 
-    nathan_init(&scene, 0, 0);
     map_init(&scene);
     return scene;
+}
+
+void scene_free(Scene *scene)
+{
+    if (!scene)
+        return;
+    // deallocate map
+    map_free(&scene->map);
+
+    // deallocate path
+    free((void *)scene->path);
+    scene->path = NULL;
 }
 
 static void scene_render_ground(float x, float z)

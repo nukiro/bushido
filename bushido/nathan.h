@@ -1,28 +1,22 @@
+#pragma once
+
 #include <raylib.h>
 #include <raymath.h>
 
 #include "types.h"
-#include "map.h"
-
-#pragma once
+#include "logger.h"
 
 #define BODY (Vector3){0.5f, 2.0f, 0.5f}
 #define X_AXIS (Vector3){2.0f, 0.0f, 0.0f}
 #define Z_AXIS (Vector3){0.0f, 0.0f, 2.0f}
 
-void nathan_init(Scene *scene, int x, int z)
+void nathan_init(Scene *scene, size_t x, size_t z)
 {
     Nathan n = {0};
-    n.position = (Vector3){0.0f, 0.0f, 0.0f};
-    if (map_is_free_at(scene->map, x, z))
-    {
-        n.position.x = x;
-        n.position.z = z;
-    }
-
+    n.position = (Vector3){(float)x, 0.0f, (float)z};
     n.body = BODY;
-
     scene->nathan = n;
+    log_info("init nathan at: x=%zu z=%zu", x, z);
 }
 
 void nathan_render(Nathan nathan)
