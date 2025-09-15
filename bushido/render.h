@@ -21,6 +21,12 @@
 #define NS "N S"
 #define SN "S N"
 
+#define NW "       NW       "
+#define WN "    W      N    "
+#define SWNE "SW            NE"
+#define SE "    S      E    "
+#define SEE "       SE       "
+
 void render_origin()
 {
 
@@ -38,9 +44,11 @@ static void render_dev_tool_compass(Scene scene)
     switch (scene.facing)
     {
     case SCENE_FACING_NORTH:
-        DrawText(N, GetScreenWidth() / 2 - MeasureText(N, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(WE, GetScreenWidth() / 2 - MeasureText(WE, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
-        DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(2), DEV_TOOL_FONT_SIZE, LIME);
+        DrawText(NW, GetScreenWidth() / 2 - MeasureText(NW, 12) / 2, 10, 12, LIME);
+        DrawText(WN, GetScreenWidth() / 2 - MeasureText(WN, 12) / 2, 24, 12, LIME);
+        DrawText(SWNE, GetScreenWidth() / 2 - MeasureText(SWNE, 12) / 2, 38, 12, LIME);
+        DrawText(SE, GetScreenWidth() / 2 - MeasureText(SE, 12) / 2, 52, 12, LIME);
+        DrawText(SEE, GetScreenWidth() / 2 - MeasureText(SEE, 12) / 2, 66, 12, LIME);
         break;
     case SCENE_FACING_SOUTH:
         DrawText(S, GetScreenWidth() / 2 - MeasureText(S, DEV_TOOL_FONT_SIZE) / 2, render_dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
