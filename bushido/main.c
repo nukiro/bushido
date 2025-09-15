@@ -7,7 +7,7 @@
 int main(void)
 {
 
-    if (!log_open(LOG_FILE))
+    if (log_open(LOG_FILE) != RC_OK)
         return 1;
 
     window_init();

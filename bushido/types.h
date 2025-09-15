@@ -1,6 +1,7 @@
-#include <raylib.h>
-
 #pragma once
+
+#include <raylib.h>
+#include <stdlib.h>
 
 typedef struct Nathan
 {
@@ -8,12 +9,16 @@ typedef struct Nathan
     Vector3 body;
 } Nathan;
 
-#define NAVIGATION_X 5
-#define NAVIGATION_Z 5
+typedef struct Map
+{
+    size_t x, z;
+    size_t max_x, max_z;
+    char *cells; // size = rows * cols, row-major
+} Map;
 
 typedef struct Scene
 {
     Nathan nathan;
     int facing;
-    int navigation[NAVIGATION_X][NAVIGATION_Z];
+    Map map;
 } Scene;

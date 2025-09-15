@@ -1,5 +1,6 @@
 #! bin/bash
 set -e
 
-gcc -std=gnu23 -Wall -Wextra -Werror -g -O0 bushido/main.c -o main -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -DDEBUG
+# gcc -std=gnu23 -Wall -Wextra -Werror -g -O0 bushido/main.c -o main -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -DDEBUG
+gcc -std=gnu23 -g -O0 bushido/main.c -o main -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -DDEBUG
 ./main
