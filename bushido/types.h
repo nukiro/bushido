@@ -22,15 +22,18 @@ typedef struct Scene
     Nathan nathan;
     int facing;
     Map map;
+    size_t n_doors;
+    char (*doors)[6]; // pointer to arrays of 6 chars
     bool is_ready;
     bool is_done;
+    size_t to;
 } Scene;
 
 typedef struct Game
 {
     const char *title;
     const char *path;
-    const char *code;
+    char code[6];
     Scene scene;
     Camera3D camera;
 } Game;

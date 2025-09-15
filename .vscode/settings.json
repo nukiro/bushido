@@ -1,6 +1,8 @@
 {
   "files.associations": {
-    "*.h": "c"
+    ".fantomasignore": "ignore",
+    "*.h": "c",
+    "system_error": "c"
   },
   "files.readonlyInclude": {
     "*log": true

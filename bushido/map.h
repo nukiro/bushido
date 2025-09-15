@@ -55,6 +55,8 @@ void map_free(Map *m)
     m->max_x = m->max_z = 0;
 }
 
+#define DOOR_LEN 5
+#define DOOR_CAP (DOOR_LEN + 1) // room for '\0'
 #define MAP_AT(m, x, z) ((m).cells[(x) * (m).z + (z)])
 rc map_loader(Scene *scene, char pad)
 {
@@ -90,6 +92,44 @@ rc map_loader(Scene *scene, char pad)
         return rc;
     }
     nathan_init(scene, nx, nz);
+
+    // check number of doors
+    size_t n_doors;
+    if (fscanf(fp, "%zu", &n_doors) != 1)
+    {
+        // close file opened previously
+        fclose(fp);
+        rc = RC_MAP_HEADER_NOT_FOUND;
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
+        return rc;
+    }
+    scene->n_doors = n_doors;
+    log_info("init doors: %zu", scene->n_doors);
+    // map each door
+    scene->doors = malloc(n_doors * sizeof *scene->doors);
+    if (!scene->doors)
+    {
+        // close file opened previously
+        fclose(fp);
+        rc = RC_MAP_CELLS_NOT_FOUND;
+        log_error("%s => path(%s)", rc_str(rc), scene->path);
+        return rc;
+    }
+    for (size_t i = 0; i < n_doors; ++i)
+    {
+        if (fscanf(fp, "%5s", scene->doors[i]) != 1)
+        { // reads up to 5 non-whitespace chars
+            fclose(fp);
+            return -1; // early EOF or parse error
+        }
+        if (strlen(scene->doors[i]) != 5)
+        { // enforce exactly 5
+            fclose(fp);
+            return -1;
+        }
+    }
+    for (size_t i = 0; i < scene->n_doors; ++i)
+        log_info("door %c: %s", 'A' + i, scene->doors[i]);
 
     int ch;
     while ((ch = fgetc(fp)) != '\n' && ch != EOF)

@@ -17,6 +17,8 @@ Scene scene_init(Game game, int facing)
     log_info("init scene: %s", game.code);
     Scene scene = {0};
     scene.map = (Map){0};
+    scene.n_doors = 0;
+    scene.to = 0;
 
     size_t la = strlen(game.path), lb = strlen(game.code);
     char *buf = malloc(la + lb + 1);
@@ -61,7 +63,10 @@ void scene_free(Scene *scene)
         return;
     // deallocate map
     map_free(&scene->map);
-
+    // deallocate doors
+    free(scene->doors);
+    scene->doors = NULL;
+    scene->n_doors = 0;
     // deallocate path
     free((void *)scene->path);
     scene->path = NULL;
@@ -103,8 +108,9 @@ void scene_map_render(Map map)
             case MAP_NAVIGATION_OBSTACLE:
                 scene_render_obstacle(x, z);
                 break;
-            case MAP_NAVIGATION_DOOR:
+            case 'A' ... 'Z':
                 scene_render_door(x, z);
+                break;
                 break;
             }
 
@@ -125,8 +131,15 @@ void scene_action(Scene *scene)
 
     switch (a)
     {
-    case MAP_NAVIGATION_DOOR:
+    case 'A' ... 'Z':
+        scene->to = a - 65;
+        log_info("scene %s navigate to: %s", scene->path, scene->doors[scene->to]);
         scene->is_done = true;
         return;
     }
+}
+
+char *scene_destination(Scene *scene)
+{
+    return scene->doors[scene->to];
 }

@@ -27,8 +27,10 @@ void window_loop(Game *game, void (*update)(Scene *, Camera3D *, float), void (*
         float dt = GetFrameTime();
         if (sp->is_ready && sp->is_done)
         {
+            // char *next_scene = sp->doors[sp->to];
             game_close_scene(game);
-            game_init_scene(game, "A0002");
+            log_info("navigation to: %s", game->code);
+            game_init_scene(game, game->code);
         }
 
         if (sp->is_ready && !sp->is_done)
