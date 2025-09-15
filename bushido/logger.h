@@ -95,7 +95,6 @@ rc log_open(const char *path)
         return rc;
     }
 
-    log_info("initializing...");
     return rc;
 }
 

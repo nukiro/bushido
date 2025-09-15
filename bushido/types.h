@@ -18,7 +18,17 @@ typedef struct Map
 
 typedef struct Scene
 {
+    const char *path;
     Nathan nathan;
     int facing;
     Map map;
 } Scene;
+
+typedef struct Game
+{
+    const char *title;
+    const char *path;
+    const char *code;
+    Scene scene;
+    Camera3D camera;
+} Game;
