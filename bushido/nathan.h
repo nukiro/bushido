@@ -6,7 +6,7 @@
 #include "types.h"
 #include "logger.h"
 
-#define BODY (Vector3){0.5f, 2.0f, 0.5f}
+#define BODY (Vector3){0.5f, 1.9f, 0.5f}
 #define X_AXIS (Vector3){2.0f, 0.0f, 0.0f}
 #define Z_AXIS (Vector3){0.0f, 0.0f, 2.0f}
 

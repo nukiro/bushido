@@ -14,6 +14,7 @@
 #define MAP_NAVIGATION_FREE '.'
 #define MAP_NAVIGATION_OBSTACLE '#'
 #define MAP_NAVIGATION_HALF_OBSTACLE '-'
+#define MAP_NAVIGATION_DOOR '|'
 
 int map_at(Map map, size_t x, size_t z)
 {

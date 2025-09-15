@@ -78,6 +78,15 @@ static void scene_render_obstacle(float x, float z)
 #endif
 }
 
+static void scene_render_door(float x, float z)
+{
+    // DrawCube((Vector3){x, 1.25f, z + 0.55f}, 0.9f, 2.5f, 0.1f, (Color){102, 0, 0, 255});
+    // DrawCubeWires((Vector3){x, 1.25f, z + 0.55f}, 0.9f, 2.5f, 0.1f, (Color){255, 255, 255, 100});
+#ifdef DEBUG
+    DrawCubeWires((Vector3){x, 0.5f, z}, 1.0f, 1.0f, 1.0f, (Color){255, 255, 255, 150});
+#endif
+}
+
 void scene_map_render(Map map)
 {
     for (int x = 0; x < map.x; x++)
@@ -88,6 +97,9 @@ void scene_map_render(Map map)
             {
             case MAP_NAVIGATION_OBSTACLE:
                 scene_render_obstacle(x, z);
+                break;
+            case MAP_NAVIGATION_DOOR:
+                scene_render_door(x, z);
                 break;
             }
 
