@@ -14,7 +14,7 @@ void nathan_init(Scene *scene, int x, int z)
 {
     Nathan n = {0};
     n.position = (Vector3){0.0f, 0.0f, 0.0f};
-    if (map_is_free_at(*scene, x, z))
+    if (map_is_free_at(scene->map, x, z))
     {
         n.position.x = x;
         n.position.z = z;

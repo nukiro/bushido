@@ -3,6 +3,7 @@
 #include "types.h"
 #include "map.h"
 #include "nathan.h"
+#include "logger.h"
 
 #pragma once
 
@@ -13,7 +14,9 @@
 
 Scene scene_init(int facing)
 {
+    log_info("initializing scene...");
     Scene scene = {0};
+    scene.map = (Map){0};
 
     scene.facing = SCENE_FACING_NORTH;
 
@@ -26,6 +29,7 @@ Scene scene_init(int facing)
         scene.facing = -1;
     }
 #endif
+    log_info("scene facing: %d", scene.facing);
 
     nathan_init(&scene, 0, 0);
     map_init(&scene);
@@ -47,15 +51,15 @@ static void scene_render_obstacle(float x, float z)
 #endif
 }
 
-void scene_navigation_render(Scene scene)
+void scene_map_render(Map map)
 {
-    for (int x = 0; x < NAVIGATION_X; x++)
+    for (int x = 0; x < map.x; x++)
     {
-        for (int z = 0; z < NAVIGATION_Z; z++)
+        for (int z = 0; z < map.z; z++)
         {
-            switch (map_at(scene, x, z))
+            switch (map_at(map, x, z))
             {
-            case 1:
+            case MAP_NAVIGATION_OBSTACLE:
                 scene_render_obstacle(x, z);
                 break;
             }

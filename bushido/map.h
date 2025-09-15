@@ -1,39 +1,130 @@
 #pragma once
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
 #include "types.h"
+#include "logger.h"
+#include "returncode.h"
 
-#define MAP_NAVIGATION_OUT -1
-#define MAP_NAVIGATION_FREE 0
-#define MAP_NAVIGATION_OBSTACLE 1
-#define MAP_NAVIGATION_HALF_OBSTACLE 2
+#define MAP_NAVIGATION_OUT 'X'
+#define MAP_NAVIGATION_FREE '.'
+#define MAP_NAVIGATION_OBSTACLE '#'
+#define MAP_NAVIGATION_HALF_OBSTACLE '-'
 
-void map_init(Scene *scene)
+int map_at(Map map, size_t x, size_t z)
 {
-    scene->navigation[2][2] = MAP_NAVIGATION_OBSTACLE;
-}
-
-int map_at(Scene scene, int x, int z)
-{
-    if (x < 0 || x >= NAVIGATION_X)
-    {
+    if (x >= map.x || z >= map.z)
         return MAP_NAVIGATION_OUT;
-    }
 
-    if (z < 0 || z >= NAVIGATION_Z)
-    {
-        return NAVIGATION_Z;
-    }
-
-    return scene.navigation[x][z];
+    // map.cells = row-major
+    return ((map).cells[(x) * (map).z + (z)]);
 }
 
-bool map_is_free_at(Scene scene, int x, int z)
+bool map_is_free_at(Map map, size_t x, size_t z)
 {
 
-    if (map_at(scene, x, z) == MAP_NAVIGATION_FREE)
+    if (map_at(map, x, z) == MAP_NAVIGATION_FREE)
     {
         return true;
     }
 
     return false;
+}
+
+static void trim_eol(char *s)
+{
+    if (!s)
+        return;
+    size_t n = strlen(s);
+    while (n && (s[n - 1] == '\n' || s[n - 1] == '\r'))
+        s[--n] = '\0';
+}
+
+void map_free(Map *m)
+{
+    if (!m)
+        return;
+    free(m->cells);
+    m->cells = NULL;
+    m->x = m->z = 0;
+}
+
+#define MAP_AT(m, x, z) ((m).cells[(x) * (m).z + (z)])
+rc map_loader(Scene *scene, const char *path, char pad)
+{
+    rc rc = RC_OK;
+    // open file in read mode
+    FILE *fp = fopen(path, "r");
+    if (!fp)
+    {
+        rc = RC_FILE_NOT_OPEN;
+        log_error("%s => path(%s)", rc_str(rc), path);
+        return rc;
+    }
+
+    // find rows and cols in the header file
+    size_t rows, cols;
+    if (fscanf(fp, "%zu %zu", &rows, &cols) != 2)
+    {
+        // close file opened previously
+        fclose(fp);
+        rc = RC_MAP_HEADER_NOT_FOUND;
+        log_error("%s => path(%s)", rc_str(rc), path);
+        return rc;
+    }
+
+    int ch;
+    while ((ch = fgetc(fp)) != '\n' && ch != EOF)
+    {
+    } // consume rest of line
+
+    scene->map.x = rows;
+    scene->map.z = cols;
+    scene->map.max_x = rows - 1;
+    scene->map.max_z = cols - 1;
+    scene->map.cells = (char *)malloc(rows * cols);
+
+    // check if map was loaded
+    // means that cells are defined
+    if (!scene->map.cells)
+    {
+        // close file opened previously
+        fclose(fp);
+        rc = RC_MAP_CELLS_NOT_FOUND;
+        log_error("%s => path(%s)", rc_str(rc), path);
+        return rc;
+    }
+
+    char *line = NULL;
+    size_t cap = 0;
+    ssize_t n;
+    for (size_t x = 0; x < rows; ++x)
+    {
+        n = getline(&line, &cap, fp);
+        if (n < 0)
+        {
+            free(line);
+            fclose(fp);
+            free(scene->map.cells);
+            return -4;
+        }
+        trim_eol(line);
+        // copy up to cols; pad the rest
+        size_t L = strlen(line);
+        for (size_t z = 0; z < cols; ++z)
+            MAP_AT((scene->map), x, z) = (z < L) ? line[z] : pad;
+    }
+    free(line);
+    fclose(fp);
+
+    log_info("map loaded => %s", path);
+    return rc;
+}
+
+rc map_init(Scene *scene)
+{
+    return map_loader(scene, "map.txt", ' ');
 }

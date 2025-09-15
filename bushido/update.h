@@ -6,6 +6,7 @@
 #include "types.h"
 #include "scene.h"
 #include "config.h"
+#include "move.h"
 
 #define WALK 1
 #define RUN 3
@@ -38,6 +39,11 @@ void update(Scene *scene, Camera3D *camera, float delta)
     if (dir.x != 0.0f || dir.z != 0.0f)
     {
         dir = Vector3Scale(Vector3Normalize(dir), RUN * delta);
+
+        Vector3 desired_target_position = Vector3Add(scene->nathan.position, dir);
+
+        // check map boundaries
+        move_check_map_boundaries(desired_target_position, &dir, scene->map.max_x, scene->map.max_z);
 
         scene->nathan.position = Vector3Add(scene->nathan.position, dir);
 

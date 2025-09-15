@@ -85,7 +85,7 @@ void render(Scene scene, Camera3D camera)
 
     BeginMode3D(camera);
 
-    scene_navigation_render(scene);
+    scene_map_render(scene.map);
 
     nathan_render(scene.nathan);
 

@@ -5,6 +5,8 @@
 #include "scene.h"
 #include "nathan.h"
 #include "camera.h"
+#include "map.h"
+#include "logger.h"
 
 #pragma once
 
@@ -29,6 +31,8 @@ void window_loop(void (*update)(Scene *, Camera3D *, float), void (*render)(Scen
         update(&scene, &camera, dt);
         render(scene, camera);
     }
+
+    map_free(&scene.map);
 }
 
 void window_close()
