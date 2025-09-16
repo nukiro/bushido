@@ -14,8 +14,10 @@
 
 Scene scene_init(Game game, int facing)
 {
-    log_info("init scene: %s", game.code);
     Scene scene = {0};
+    snprintf(scene.code, sizeof scene.code, "%s", game.code);
+    snprintf(scene.from, sizeof scene.from, "%s", game.from);
+    log_info("init scene: %s from %s", scene.code, scene.from);
     scene.map = (Map){0};
     scene.n_doors = 0;
     scene.to = 0;
@@ -133,7 +135,6 @@ void scene_action(Scene *scene)
     {
     case 'A' ... 'Z':
         scene->to = a - 65;
-        log_info("scene %s navigate to: %s", scene->path, scene->doors[scene->to]);
         scene->is_done = true;
         return;
     }

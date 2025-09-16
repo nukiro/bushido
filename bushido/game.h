@@ -13,7 +13,10 @@ Game game_init()
     Game g = {0};
     g.title = "武士道";
     g.path = "maps/";
+    // initial scene
     snprintf(g.code, sizeof g.code, "%s", "A0001");
+    // set naviation as zero
+    snprintf(g.from, sizeof g.from, "%s", "00000");
 
     g.scene = scene_init(g, SCENE_FACING_NORTH);
     g.camera = camera_init(&g.scene);
@@ -23,18 +26,15 @@ Game game_init()
 
 void game_close_scene(Game *game)
 {
+    // update game next scene and previous scene
+    snprintf(game->from, sizeof game->from, "%s", game->code);
     snprintf(game->code, sizeof game->code, "%s", scene_destination(&game->scene));
-    // game->code = scene_destination(&game->scene);
-    log_info("new destination in game: %s", game->code);
+    // free previous scene before loading the next one
     scene_free(&game->scene);
-    log_info("new destination in game: %s", game->code);
-    // game->code = "A0001";
 }
 
-void game_init_scene(Game *g, const char *code)
+void game_init_scene(Game *g)
 {
-    log_info("init ?? %s", g->code);
-    // snprintf(g->code, sizeof g->code, "%s", code);
     g->scene = scene_init(*g, SCENE_FACING_NORTH);
     g->camera = camera_init(&g->scene);
 }

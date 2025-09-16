@@ -82,6 +82,7 @@ rc map_loader(Scene *scene, char pad)
     }
 
     // find nathan initial position
+    // if there is no navigation
     size_t nx, nz;
     if (fscanf(fp, "%zu %zu", &nx, &nz) != 2)
     {
@@ -91,7 +92,6 @@ rc map_loader(Scene *scene, char pad)
         log_error("%s => path(%s)", rc_str(rc), scene->path);
         return rc;
     }
-    nathan_init(scene, nx, nz);
 
     // check number of doors
     size_t n_doors;
@@ -176,6 +176,34 @@ rc map_loader(Scene *scene, char pad)
     fclose(fp);
 
     log_info("map loaded => %s", scene->path);
+
+    // check if there is navigation
+    if (strcmp(scene->from, "00000") != 0)
+    {
+        // from previous scene we need to find the door
+        // takes its position and set it to nathan
+        for (size_t i = 0; i < n_doors; ++i)
+        {
+            if (strcmp(scene->from, scene->doors[i]) == 0)
+            {
+                log_info("%d", i);
+                int a = i + 65;
+                for (size_t j = 0; j < (rows * cols); ++j)
+                {
+                    if (a == scene->map.cells[j])
+                    {
+                        log_info("%d", j);
+                        nx = j / cols;
+                        nz = j - ((j / cols) * rows);
+                    }
+                }
+            }
+        }
+        // nathan_init(scene, 1, 1);
+    }
+    // else
+    nathan_init(scene, nx, nz);
+
     return rc;
 }
 
