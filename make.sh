@@ -13,10 +13,16 @@ SOURCE=bushido/src
 TESTS=bushido/tests
 
 case "$COMMAND" in
+  dev)
+    echo "Running dev..."
+    echo ""
+    gcc $STD $DDEBUG -I$SOURCE bushido/main.c -o dist/main $LRAYLIB
+    ./dist/main
+    ;;
   build)
     echo "Running build..."
     echo ""
-    gcc $STD $DDEBUG -I$SOURCE bushido/main.c -o dist/main $LRAYLIB
+    gcc $STD -I$SOURCE bushido/main.c -o dist/build $LRAYLIB
     ./dist/main
     ;;
   test)

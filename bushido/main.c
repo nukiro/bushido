@@ -1,9 +1,9 @@
-#include "window.h"
-#include "update.h"
-#include "render.h"
-#include "logger.h"
-#include "config.h"
-#include "game.h"
+#include "src/window.h"
+#include "src/update.h"
+#include "src/render.h"
+#include "src/logger.h"
+#include "src/config.h"
+#include "src/game.h"
 
 int main(void)
 {
