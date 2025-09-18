@@ -2,7 +2,10 @@
   "configurations": [
     {
       "name": "Linux",
-      "includePath": [],
+      "includePath": [
+        "${workspaceFolder}/bushido/tests/**",
+        "${workspaceFolder}/bushido/include"
+      ],
       "defines": ["true=1", "false=0", "TEST", "DEBUG"],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu23"

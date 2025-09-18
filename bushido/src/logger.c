@@ -1,11 +1,6 @@
-#pragma once
+#include "logger.h"
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-
-#include "returncode.h"
-
+#define LOG_DEBUG "DEBUG"
 #define LOG_INFO "INFO"
 #define LOG_ERROR "ERROR"
 
@@ -34,14 +29,16 @@ static void make_timestamp(char out[32], int *msec_out)
     *msec_out = (int)(ts.tv_nsec / 1000000L);
 }
 
-rc log_message(const char *category, const char *fmt, va_list ap)
+static void log_message(const char *category, const char *fmt, va_list ap)
 {
-    rc rc = RC_OK;
+#ifdef TEST
+    return;
+#endif
+
     if (!s_fp)
     {
-        rc = RC_FILE_NOT_OPEN;
-        fprintf(stderr, "log_message: %s\n", rc_str(rc));
-        return rc;
+        fprintf(stderr, "[ERROR] {log_message}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        return;
     }
 
     char when[32];
@@ -54,54 +51,64 @@ rc log_message(const char *category, const char *fmt, va_list ap)
     fputc('\n', s_fp);
 
 #ifdef DEBUG
+    // when debug flush messages instantaneously
     fflush(s_fp);
 #endif
-    return rc;
 }
 
-rc log_info(const char *fmt, ...)
+void log_debug(const char *fmt, ...)
 {
-    rc rc;
     va_list ap;
     va_start(ap, fmt);
-    rc = log_message(LOG_INFO, fmt, ap);
+    log_message(LOG_DEBUG, fmt, ap);
     va_end(ap);
-    return rc;
 }
 
-rc log_error(const char *fmt, ...)
+void log_info(const char *fmt, ...)
 {
-    rc rc;
     va_list ap;
     va_start(ap, fmt);
-    rc = log_message(LOG_ERROR, fmt, ap);
+    log_message(LOG_INFO, fmt, ap);
     va_end(ap);
-    return rc;
 }
 
-rc log_open(const char *path)
+void log_error(const char *fmt, ...)
 {
-    rc rc = RC_OK;
+    va_list ap;
+    va_start(ap, fmt);
+    log_message(LOG_ERROR, fmt, ap);
+    va_end(ap);
+}
 
+status log_open(const char *path)
+{
+#ifdef TEST
+    return STATUS_OK;
+#endif
+
+    if (!path)
+    {
+        fprintf(stderr, "[ERROR] {log_open}: path is required\n");
+        return STATUS_ERR_FILE_NOT_OPEN;
+    }
     // already open
     if (s_fp)
-        return rc;
+        return STATUS_OK;
 
     s_fp = fopen(path, "w");
     if (!s_fp)
     {
-        rc = RC_FILE_NOT_OPEN;
-        fprintf(stderr, "log_open: %s\n", rc_str(rc));
-        return rc;
+        fprintf(stderr, "[ERROR] {log_open}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        return STATUS_ERR_FILE_NOT_OPEN;
     }
-
-    return rc;
+    return STATUS_OK;
 }
 
 void log_close(void)
 {
-    log_info("all done!");
-
+#ifdef TEST
+    return;
+#endif
     // close logger pointer, do not log anything else
     if (s_fp)
     {

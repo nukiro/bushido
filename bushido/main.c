@@ -1,25 +1,29 @@
-#include "src/window.h"
-#include "src/update.h"
-#include "src/render.h"
-#include "src/logger.h"
-#include "src/config.h"
-#include "src/game.h"
+#include "logger.h"
+#include "config.h"
+#include "game.h"
+#include "manager.h"
+#include "window.h"
 
 int main(void)
 {
-
-    if (log_open(LOG_FILE) != RC_OK)
+    if (!log_open(LOG_FILE))
         return 1;
 
-    Game game = game_init();
+    Game game = {0};
+    if (!game_init(&game))
+        return 1;
 
-    window_init(game);
+    Manager manager = {0};
+    if (!manager_init(&manager))
+        return 1;
 
-    window_loop(&game, update, render);
+    window_init(&game, &manager);
+
+    window_loop();
 
     window_close();
 
-    game_close_scene(&game);
+    game_close();
 
     log_close();
 

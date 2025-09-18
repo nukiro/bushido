@@ -1,33 +1,30 @@
 # Testing
 
-```c
-// mathx.h
-int add(int a, int b);
-```
-
-In our `C` source code we define our test and register them.
+In our source code we define our test and register them.
 
 ```c
-// mathx.c
-int add(int a, int b) { return a + b; }
-
 #ifdef TEST
-#include "../tests/test.h"
 
-static void test_add(Test *t)
+#include "test.h"
+#include "string.h"
+
+static void test_manager_init(Test *t)
 {
-    assert(t, add(2, 3) == 4, "add(2,3) should be 5");
-    if (t->result)
-        printf("test was good\n");
-    else
-        printf("test was not good\n");
+    const char *current = "A0001";
+
+    Manager m = manager_init(current);
+
+    bool check = strcmp(m.navigation.current, "A0001") == 0;
+    assert(t, check, "manager_init should initialize current navigation");
 }
 
-void mathx_register_tests(void)
+void manager_tests(void)
 {
-    Test t = {true, 0, 0};
+    Test t = {"Manager", true, 0, 0};
 
-    test_add(&t);
+    test_manager_init(&t);
+
+    result(t);
 }
 #endif
 ```
