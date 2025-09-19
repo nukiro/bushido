@@ -7,11 +7,11 @@ STD="-std=gnu23"
 CFLAGS="-Wall -Wextra -Werror -g -O0"
 DDEBUG="-DDEBUG"
 DTEST="-DTEST"
-LDFLAGS="-lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -lglfw"
+LDFLAGS="-lraylib -lm -ldl -lpthread -lGL -lrt -lX11"
 
-INCLUDE=bushido/include
-SOURCE=bushido/src
-TESTS=bushido/tests
+INCLUDE="bushido/include"
+SOURCE="bushido/src"
+TESTS="bushido/tests"
 
 APPDIR="$HOME/.local/share/applications"
 DESKTOP="$APPDIR/bushido.desktop"
@@ -34,7 +34,6 @@ case "$COMMAND" in
       echo "Desktop entry exists, not overwriting: $DESKTOP"
     fi
 
-    # Optional: install icon only if missing
     if [[ -f "samurai.png" ]]; then
       if [[ ! -f "$ICON" ]]; then
         mkdir -p "$ICONDIR"
@@ -46,10 +45,10 @@ case "$COMMAND" in
         echo "Icon exists, not overwriting: $ICON"
       fi
     fi
-
     # Refresh desktop DB (harmless if not needed)
     update-desktop-database "$APPDIR" >/dev/null 2>&1 || true
 
+    echo ""
     ./dist/dev
     ;;
   build)
@@ -73,7 +72,3 @@ case "$COMMAND" in
     exit 1
     ;;
 esac
-
-# gcc -std=gnu23 -Wall -Wextra -Werror -g -O0 bushido/main.c -o main -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -DDEBUG
-# gcc -std=gnu23 -g -O0 -Ibushido/src bushido/main.c -o main -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 -DDEBUG
-# ./main
