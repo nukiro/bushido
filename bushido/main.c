@@ -19,7 +19,7 @@ int main(void)
 
     window_init(&game, &manager);
 
-    window_loop();
+    window_loop(&game, &manager);
 
     window_close();
 
