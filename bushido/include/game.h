@@ -7,7 +7,7 @@
 
 typedef struct Game
 {
-    const char *name;
+    const char *title;
 } Game;
 
 status game_init(Game *game);

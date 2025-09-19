@@ -14,6 +14,7 @@ typedef struct Navigation
 
 typedef struct Window
 {
+    const char *title;
     int width;
     int height;
 } Window;

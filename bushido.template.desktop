@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=0.1
+Name=武士道
+Exec=$BIN
+Icon=$ICON
+Terminal=false
+Categories=Game;
