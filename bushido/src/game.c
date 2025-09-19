@@ -3,7 +3,7 @@
 status game_init(Game *g)
 {
     log_info("game initializing...");
-    g->name = GAME_TITLE;
+    g->title = GAME_TITLE;
 
     DBG("game init");
     return STATUS_OK;
@@ -26,7 +26,7 @@ void it_should_init_close_game(Test *t)
     bool status = game_init(&g);
 
     assert(t, status == 1, "game_init() should return ok when the game is initialized");
-    assert(t, g.name != NULL, "game_init() should set name");
+    assert(t, g.title != NULL, "game_init() should set name");
 
     game_close();
 }

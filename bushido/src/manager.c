@@ -4,7 +4,7 @@ status manager_init(Manager *m)
 {
     log_info("manager initializating...");
     // init window with config properties
-    m->window = (Window){WINDOW_WIDTH, WINDOW_HEIGHT};
+    m->window = (Window){WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT};
 
     // init scene navigation
     snprintf(m->navigation.current, 6, "%s", NAVIGATION_SCENE_INIT);
