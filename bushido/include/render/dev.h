@@ -4,6 +4,5 @@
 
 #include "game.h"
 #include "manager.h"
-#include "render/dev.h"
 
-void render(const Game *game, Manager *manager);
+void dev(const Game *g, const Manager *m);
