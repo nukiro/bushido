@@ -186,7 +186,7 @@ install() {
 
 build_dev() {
   echo "building for dev..."
-  compile_and_report_live "$CC" -std="$STD" "${CFLAGS[@]}" -g -Og -DDEBUG -I$INCLUDEDIR -o dist/dev bushido/main.c $SOURCEDIR/*.c "${LDFLAGS[@]}"
+  compile_and_report_live "$CC" -std="$STD" "${CFLAGS[@]}" -g -Og -DDEBUG -I$INCLUDEDIR -o dist/dev bushido/main.c $SOURCEDIR/**/*.c $SOURCEDIR/*.c "${LDFLAGS[@]}"
   if (( RUN )); then
     echo ""
     ./dist/dev
