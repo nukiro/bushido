@@ -9,8 +9,11 @@ status manager_init(Manager *m)
     // init scene navigation
     snprintf(m->navigation.current, 6, "%s", NAVIGATION_SCENE_INIT);
     snprintf(m->navigation.previous, 6, "%s", NAVIGATION_SCENE_NULL);
-
     DBG("navigation scene init: %s", NAVIGATION_SCENE_INIT);
+
+    // init hero as it is required in the scene and in the camera
+    m->hero = (Hero){0};
+    hero_init(&m->hero);
 
     // allocate scene
     status st = scene_allocate(NULL, &m->scene, NAVIGATION_SCENE_INIT);
@@ -18,6 +21,10 @@ status manager_init(Manager *m)
     {
         return st;
     }
+
+    // init camera
+    m->camera = (Camera3D){0};
+    camera_init(&m->camera, &m->hero);
 
     DBG("manager init");
     return STATUS_OK;

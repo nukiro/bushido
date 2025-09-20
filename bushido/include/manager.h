@@ -1,10 +1,13 @@
 #pragma once
 
 #include <stdio.h>
+#include <raylib.h>
 
+#include "debug.h"
 #include "config.h"
 #include "scene.h"
-#include "debug.h"
+#include "camera.h"
+#include "hero.h"
 
 typedef struct Navigation
 {
@@ -24,6 +27,8 @@ typedef struct Manager
     Window window;
     Navigation navigation;
     Scene *scene;
+    Camera3D camera;
+    Hero hero;
 
 } Manager;
 
