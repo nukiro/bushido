@@ -33,10 +33,13 @@ The following commands are from the Github `raylib` documentation as an example 
 # install library dependencies
 sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev libxkbcommon-dev
 # build the project
+cd # clone raylib repository wherever you want
 git clone --depth 1 https://github.com/raysan5/raylib.git
 cd raylib/src
-make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED
+make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED # it may take a while
 sudo make install RAYLIB_LIBTYPE=SHARED
+# you can remove raylib repository
+cd && rm -rf raylib
 ```
 
 For other building options check [this link](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#build-raylib-using-make).
