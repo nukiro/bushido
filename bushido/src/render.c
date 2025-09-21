@@ -7,16 +7,16 @@ void render(const Game *g, Manager *m)
 
     BeginMode3D(m->fov.camera);
 
-    render_hero(&m->hero);
+    render_hero(&m->hero.volume);
 
 #ifdef DEBUG
-    dev_graphics(m);
+    render_dev_graphics();
 #endif
 
     EndMode3D();
 
 #ifdef DEBUG
-    dev_insight(g, m);
+    render_dev_insight(g, m);
 #endif
 
     EndDrawing();

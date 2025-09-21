@@ -7,5 +7,5 @@
 
 #include "rconfig.h"
 
-void dev_insight(const Game *g, const Manager *m);
-void dev_graphics(const Manager *m);
+void render_dev_insight(const Game *g, const Manager *m);
+void render_dev_graphics();
