@@ -27,7 +27,7 @@ Clone the project.
 
 ### Raylib
 
-The following commands are from the Github `raylib` documentation as an example for the process. Check before running them in the GitHub documentation for any updates.
+The following commands are extracted from the Github `raylib` documentation. Check before running them in the GitHub documentation for any updates.
 
 ```shell
 # install library dependencies
@@ -38,11 +38,11 @@ git clone --depth 1 https://github.com/raysan5/raylib.git
 cd raylib/src
 make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED # it may take a while
 sudo make install RAYLIB_LIBTYPE=SHARED
-# you can remove raylib repository
+# now you can remove raylib repository if you want
 cd && rm -rf raylib
 ```
 
-For other building options check [this link](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#build-raylib-using-make).
+For other building options, check [this link](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#build-raylib-using-make).
 
 ### Build the project
 
