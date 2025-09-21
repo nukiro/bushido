@@ -44,6 +44,12 @@ cd && rm -rf raylib
 
 For other building options check [this link](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#build-raylib-using-make).
 
+### Build the project
+
+Before building it, install it: `bash make.sh install`. Run it once (no need to run it before following builds).
+
+Compile: `bash make.sh dev`.
+
 ### Git Configuration
 
 ```shell
