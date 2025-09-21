@@ -7,8 +7,18 @@ void render(const Game *g, Manager *m)
     BeginDrawing();
     ClearBackground(RENDER_COLOR_BACKGROUND);
 
+    BeginMode3D(m->view.camera);
+
+    render_hero(&m->hero);
+
 #ifdef DEBUG
-    dev(g, m);
+    dev_graphics(m);
+#endif
+
+    EndMode3D();
+
+#ifdef DEBUG
+    dev_insights(g, m);
 #endif
 
     EndDrawing();

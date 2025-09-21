@@ -6,7 +6,7 @@
 #include "debug.h"
 #include "config.h"
 #include "scene.h"
-#include "camera.h"
+#include "view.h"
 #include "hero.h"
 
 typedef struct Navigation
@@ -27,7 +27,7 @@ typedef struct Manager
     Window window;
     Navigation navigation;
     Scene *scene;
-    Camera3D camera;
+    View view;
     Hero hero;
 
 } Manager;

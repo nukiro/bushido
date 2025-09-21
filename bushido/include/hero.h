@@ -2,10 +2,11 @@
 
 #include <raylib.h>
 
+#include "volume.h"
+
 typedef struct Hero
 {
-    Vector3 position;
-    Vector3 box;
+    Volume volume;
 } Hero;
 
 void hero_init(Hero *hero);

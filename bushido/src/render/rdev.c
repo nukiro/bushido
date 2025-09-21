@@ -1,4 +1,4 @@
-#include "render/dev.h"
+#include "render/rdev.h"
 
 #define DEV_TOOL_FONT_SIZE 10
 #define DEV_TOOL_MARGIN_X 5
@@ -22,15 +22,20 @@ static const char *format_text(char buf[16], const char *s)
 
 void origin()
 {
-    DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){1.0f, 0.0f, -0.5f}, WHITE);
-    DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){-0.5f, 0.0f, 1.0f}, WHITE);
+    DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){1.0f, 0.0f, -0.5f}, (Color){255, 255, 255, 100});
+    DrawLine3D((Vector3){-0.5f, 0.0f, -0.5f}, (Vector3){-0.5f, 0.0f, 1.0f}, (Color){255, 255, 255, 100});
+    DrawLine3D((Vector3){0.5f, 0.0f, -0.5f}, (Vector3){0.5f, 0.0f, 0.5f}, (Color){255, 255, 255, 100});
+    DrawLine3D((Vector3){-0.5f, 0.0f, 0.5f}, (Vector3){0.5f, 0.0f, 0.5f}, (Color){255, 255, 255, 100});
 }
 
-void dev(const Game *g, const Manager *m)
+void dev_insights(const Game *g, const Manager *m)
 {
     char buf[16];
     DrawText(TextFormat("%s%s", format_text(buf, "tag"), g->tag), DEV_TOOL_MARGIN_X, dev_position_y(0), DEV_TOOL_FONT_SIZE, LIME);
     DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), DEV_TOOL_MARGIN_X, dev_position_y(1), DEV_TOOL_FONT_SIZE, LIME);
+}
 
+void dev_graphics(const Manager *m)
+{
     origin();
 }
