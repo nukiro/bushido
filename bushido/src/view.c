@@ -1,8 +1,8 @@
 #include "view.h"
 
-static Vector3 target(const Hero *h)
+static Vector3 target(const Volume *v)
 {
-    return (Vector3){h->volume.position.x, h->volume.box.y / 2, h->volume.position.z};
+    return (Vector3){v->position.x, v->box.y / 2, v->position.z};
 }
 
 static Vector3 position(const Vector3 *t, Position p)
@@ -23,12 +23,12 @@ static Vector3 position(const Vector3 *t, Position p)
     return Vector3Add(*t, c);
 }
 
-void view_init(View *c, const Hero *h)
+void view_init(View *c, const Volume *v)
 {
     // use in positiion method to get camera Vector3 position
     c->position = GAME_VIEW_POSITION;
 
-    Vector3 t = target(h);
+    Vector3 t = target(v);
 
     c->camera.position = position(&t, c->position);
     c->camera.target = t;

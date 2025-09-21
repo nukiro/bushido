@@ -24,7 +24,7 @@ status manager_init(Manager *m)
 
     // init view
     m->view = (View){0};
-    view_init(&m->view, &m->hero);
+    view_init(&m->view, &m->hero.volume);
 
     DBG("manager init");
     return STATUS_OK;

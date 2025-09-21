@@ -5,7 +5,7 @@
 
 #include "config.h"
 #include "debug.h"
-#include "hero.h"
+#include "volume.h"
 
 #define ZOOM 10.0f
 
@@ -28,4 +28,4 @@ typedef struct View
     Camera camera;
 } View;
 
-void view_init(View *view, const Hero *h);
+void view_init(View *view, const Volume *volume);
