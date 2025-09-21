@@ -16,7 +16,8 @@ void render(const Game *g, Manager *m)
     EndMode3D();
 
 #ifdef DEBUG
-    render_dev_insight(g, m);
+    DrawFPS(RENDER_DEV_INSIGHT_MARGIN_X, RENDER_DEV_INSIGHT_MARGIN_Y);
+    render_dev_insight(g, m, 30);
 #endif
 
     EndDrawing();

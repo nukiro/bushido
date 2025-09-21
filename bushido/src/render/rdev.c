@@ -1,8 +1,8 @@
 #include "render/rdev.h"
 
-static int dev_position_y(int n)
+static int dev_position_y(int n, int gap)
 {
-    return RENDER_DEV_INSIGHT_MARGIN_Y + ((RENDER_DEV_INSIGHT_FONT_SIZE + RENDER_DEV_INSIGHT_SEPARATOR) * n);
+    return gap + RENDER_DEV_INSIGHT_MARGIN_Y + ((RENDER_DEV_INSIGHT_FONT_SIZE + RENDER_DEV_INSIGHT_SEPARATOR) * n);
 }
 
 static const char *format_text(char buf[RENDER_DEV_TABLE_COLUMN_NAME], const char *s)
@@ -25,11 +25,11 @@ static void origin()
     DrawLine3D((Vector3){-0.5f, 0.0f, 0.5f}, (Vector3){0.5f, 0.0f, 0.5f}, RENDER_COLOR_DEBUG);
 }
 
-void render_dev_insight(const Game *g, const Manager *m)
+void render_dev_insight(const Game *g, const Manager *m, int gap)
 {
     char buf[RENDER_DEV_TABLE_COLUMN_NAME];
-    DrawText(TextFormat("%s%s", format_text(buf, "tag"), g->tag), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(0), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
-    DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(1), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
+    DrawText(TextFormat("%s%s", format_text(buf, "tag"), g->tag), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(0, gap), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
+    DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(1, gap), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
 }
 
 void render_dev_graphics()
