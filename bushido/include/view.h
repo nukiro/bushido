@@ -12,12 +12,12 @@ typedef enum
     Default,
     Aerial,
     Ground,
-} CameraPosition;
-
-typedef struct View
-{
-    CameraPosition position;
-    Camera camera;
 } View;
 
-void view_init(View *view, const Volume *volume);
+typedef struct FieldOfVision
+{
+    View view;
+    Camera camera;
+} FieldOfVision;
+
+void view_init(FieldOfVision *fov, const Volume *volume);

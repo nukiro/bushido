@@ -23,8 +23,8 @@ status manager_init(Manager *m)
     }
 
     // init view
-    m->view = (View){0};
-    view_init(&m->view, &m->hero.volume);
+    m->fov = (FieldOfVision){0};
+    view_init(&m->fov, &m->hero.volume);
 
     DBG("manager init");
     return STATUS_OK;

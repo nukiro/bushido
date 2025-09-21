@@ -27,7 +27,7 @@ typedef struct Manager
     Window window;
     Navigation navigation;
     Scene *scene;
-    View view;
+    FieldOfVision fov;
     Hero hero;
 
 } Manager;

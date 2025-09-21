@@ -11,7 +11,7 @@ static Vector3 target(const Volume *v)
     return (Vector3){v->position.x, v->box.y / 2, v->position.z};
 }
 
-static Vector3 position(const Vector3 *t, CameraPosition p, float z)
+static Vector3 position(const Vector3 *t, View p, float z)
 {
     Vector3 c;
     switch (p)
@@ -29,18 +29,18 @@ static Vector3 position(const Vector3 *t, CameraPosition p, float z)
     return Vector3Add(*t, c);
 }
 
-void view_init(View *c, const Volume *v)
+void view_init(FieldOfVision *fov, const Volume *v)
 {
     // use in positiion method to get camera Vector3 position
-    c->position = GAME_VIEW_POSITION;
+    fov->view = GAME_FOV_VIEW;
 
     Vector3 t = target(v);
 
-    c->camera.position = position(&t, c->position, GAME_VIEW_ZOOM);
-    c->camera.target = t;
-    c->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-    c->camera.fovy = GAME_VIEW_ZOOM;
-    c->camera.projection = CAMERA_ORTHOGRAPHIC;
+    fov->camera.position = position(&t, fov->view, GAME_FOV_ZOOM);
+    fov->camera.target = t;
+    fov->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
+    fov->camera.fovy = GAME_FOV_ZOOM;
+    fov->camera.projection = CAMERA_ORTHOGRAPHIC;
 
     DBG("view init");
 }

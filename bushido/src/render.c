@@ -7,7 +7,7 @@ void render(const Game *g, Manager *m)
     BeginDrawing();
     ClearBackground(RENDER_COLOR_BACKGROUND);
 
-    BeginMode3D(m->view.camera);
+    BeginMode3D(m->fov.camera);
 
     render_hero(&m->hero);
 
