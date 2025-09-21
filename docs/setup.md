@@ -9,7 +9,7 @@ sudo apt update
 sudo apt upgrade
 ```
 
-For the **terminal**, install: `zsh` and `oh-my-zsh`.
+For the **terminal**, install: `zsh` and `oh-my-zsh`. `zsh` plugins: `zsh-autosuggestions` and `zsh-syntax-highlighting`. Add both to `.zshrc`.
 
 Install utilities: `sudo apt install git vim`.
 
