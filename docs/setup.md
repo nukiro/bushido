@@ -25,6 +25,22 @@ Clone the project.
 
 `sudo apt install build-essential gdb pkg-config`
 
+### Raylib
+
+The following commands are from the Github `raylib` documentation as an example for the process. Check before running them in the GitHub documentation for any updates.
+
+```shell
+# install library dependencies
+sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev libxkbcommon-dev
+# build the project
+git clone --depth 1 https://github.com/raysan5/raylib.git
+cd raylib/src
+make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED
+sudo make install RAYLIB_LIBTYPE=SHARED
+```
+
+For other building options check [this link](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux#build-raylib-using-make).
+
 ### Git Configuration
 
 ```shell
