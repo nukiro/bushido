@@ -3,8 +3,8 @@
 status game_init(Game *g)
 {
     log_info("game initializing...");
-    g->tag = "v0.1.0";
-    g->release = "v0.1.0";
+    g->tag = GAME_TAG;
+    g->release = GAME_RELEASE;
 
     DBG("tag: %s, build: %s", g->tag, g->release);
 
