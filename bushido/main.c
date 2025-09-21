@@ -6,7 +6,7 @@
 
 int main(void)
 {
-    if (!log_open(LOG_FILE))
+    if (!log_open(GAME_LOG_FILE))
         return 1;
 
     Game game = {0};
