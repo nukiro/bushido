@@ -1,7 +1,5 @@
 #include "render.h"
 
-#define RENDER_COLOR_BACKGROUND (Color){25, 25, 25, 1}
-
 void render(const Game *g, Manager *m)
 {
     BeginDrawing();
@@ -18,7 +16,7 @@ void render(const Game *g, Manager *m)
     EndMode3D();
 
 #ifdef DEBUG
-    dev_insights(g, m);
+    dev_insight(g, m);
 #endif
 
     EndDrawing();

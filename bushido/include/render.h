@@ -5,6 +5,7 @@
 #include "game.h"
 #include "manager.h"
 
+#include "render/rconfig.h"
 #include "render/rdev.h"
 #include "render/rhero.h"
 

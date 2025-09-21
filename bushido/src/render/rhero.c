@@ -16,5 +16,5 @@ void render_hero(const Hero *h)
     box(h);
     axis(&h->volume);
 #endif
-    // body(h);
+    body(h);
 }

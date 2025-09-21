@@ -5,5 +5,7 @@
 #include "game.h"
 #include "manager.h"
 
-void dev_insights(const Game *g, const Manager *m);
+#include "render/rconfig.h"
+
+void dev_insight(const Game *g, const Manager *m);
 void dev_graphics(const Manager *m);
