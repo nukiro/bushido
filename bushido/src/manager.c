@@ -1,10 +1,37 @@
 #include "manager.h"
 
-status manager_init(Manager *m)
+#define RESOLUTION_1080 1
+#define RESOLUTION_1440 2
+#define RESOLUTION_4K 3
+
+static inline void resolution(int r, int *w, int *h)
+{
+    switch (r)
+    {
+    case RESOLUTION_1080:
+        *w = 1920;
+        *h = 1080;
+        break;
+    case RESOLUTION_1440:
+        *w = 2560;
+        *h = 1440;
+        break;
+    case RESOLUTION_4K:
+        *w = 3840;
+        *h = 2160;
+        break;
+    default:
+        break;
+    }
+}
+
+status manager_init(Manager *m, const Game *g)
 {
     log_info("manager initializating...");
-    // init window with config properties
-    m->window = (Window){GAME_WINDOW_TITLE, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT};
+    // init window with default config values
+    int w = GAME_WINDOW_WIDTH, h = GAME_WINDOW_HEIGHT;
+    resolution(g->config.resolution, &w, &h);
+    m->window = (Window){GAME_WINDOW_TITLE, w, h};
 
     // init scene navigation
     snprintf(m->navigation.current, 6, "%s", GAME_NAVIGATION_SCENE_INIT);
@@ -47,8 +74,9 @@ void manager_close(Manager *m)
 
 void it_should_init_close_manager(Test *t)
 {
+    Game g = {0};
     Manager m = {0};
-    bool status = manager_init(&m);
+    bool status = manager_init(&m, &g);
 
     assert(t, status == 1, "manager_init() should return ok when the manager is initialized");
     assert(t, strcmp(m.navigation.current, GAME_NAVIGATION_SCENE_INIT) == 0, "manager_init() should initialize the current navigation");

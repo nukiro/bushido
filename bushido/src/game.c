@@ -3,10 +3,13 @@
 status game_init(Game *g)
 {
     log_info("game initializing...");
+
     g->tag = GAME_TAG;
     g->release = GAME_RELEASE;
-
     DBG("tag: %s, build: %s", g->tag, g->release);
+
+    g->config = (Configuration){GAME_FPS, GAME_RESOLUTION};
+    g->params = (Parameters){GAME_PATH_ASSETS};
 
     g->title = GAME_TITLE;
 

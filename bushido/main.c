@@ -14,7 +14,7 @@ int main(void)
         return 1;
 
     Manager manager = {0};
-    if (!manager_init(&manager))
+    if (!manager_init(&manager, &game))
         return 1;
 
     window_init(&game, &manager);

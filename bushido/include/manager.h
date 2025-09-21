@@ -8,6 +8,7 @@
 #include "scene.h"
 #include "view.h"
 #include "hero.h"
+#include "game.h"
 
 typedef struct Navigation
 {
@@ -32,5 +33,5 @@ typedef struct Manager
 
 } Manager;
 
-status manager_init(Manager *m);
-void manager_close(Manager *m);
+status manager_init(Manager *manager, const Game *game);
+void manager_close(Manager *manager);
