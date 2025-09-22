@@ -1,8 +1,5 @@
 #include "render/rhero.h"
 
-#include <raylib.h>
-#include <raymath.h>
-
 #include "types.h"
 
 #include "render/rutils.h"

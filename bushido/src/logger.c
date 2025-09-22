@@ -5,7 +5,6 @@
 #include <time.h>
 
 #include "common.h"
-#include "status.h"
 
 #define GAME_LOG_DEBUG "DEBUG"
 #define GAME_LOG_INFO "INFO"
@@ -44,7 +43,7 @@ static void log_message(const char *category, const char *fmt, va_list ap)
 
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_message}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        fprintf(stderr, "[ERROR] {log_message}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
         return;
     }
 
@@ -105,7 +104,7 @@ int log_open(const char *path)
     s_fp = fopen(path, "w");
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_open}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        fprintf(stderr, "[ERROR] {log_open}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
         return STATUS_ERR_FILE_NOT_OPEN;
     }
     return STATUS_OK;

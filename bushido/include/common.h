@@ -2,7 +2,6 @@
 
 #include <stddef.h>
 
-struct Vector3;
 #define X_AXIS (Vector3){1.0f, 0.0f, 0.0f}
 #define Y_AXIS (Vector3){0.0f, 1.0f, 0.0f}
 #define Z_AXIS (Vector3){0.0f, 0.0f, 1.0f}

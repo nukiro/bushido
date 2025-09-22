@@ -1,8 +1,5 @@
 #include "render/rutils.h"
 
-#include <raylib.h>
-#include <raymath.h>
-
 #include "types.h"
 #include "common.h"
 #include "render/rconfig.h"
