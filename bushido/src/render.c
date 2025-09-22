@@ -2,14 +2,13 @@
 
 #include <raylib.h>
 
-#include "game.h"
 #include "manager.h"
 
 #include "render/rconfig.h"
 #include "render/rdev.h"
 #include "render/rhero.h"
 
-void render(const Game *g, Manager *m)
+void render(Manager *m)
 {
     BeginDrawing();
     ClearBackground(RENDER_COLOR_BACKGROUND);
@@ -25,7 +24,7 @@ void render(const Game *g, Manager *m)
     EndMode3D();
 
 #ifdef DEBUG
-    render_dev_insight(g, m);
+    render_dev_insight(m);
 #endif
 
     EndDrawing();

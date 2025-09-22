@@ -17,12 +17,12 @@ void window_init(const Game *g, Manager *m)
     DBG("game fps: %d", GAME_FPS);
 }
 
-void window_loop(const Game *g, Manager *m)
+void window_loop(Manager *m)
 {
     DBG("window loop start");
     while (!WindowShouldClose())
     {
-        render(g, m);
+        render(m);
     }
     DBG("window loop end");
 }
