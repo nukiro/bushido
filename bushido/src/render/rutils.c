@@ -1,5 +1,9 @@
 #include "render/rutils.h"
 
+#include "types.h"
+#include "common.h"
+#include "render/rconfig.h"
+
 void axis(const Volume *v)
 {
     Vector3 from = {v->position.x, v->box.y, v->position.z};

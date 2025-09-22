@@ -1,6 +1,16 @@
 #include "manager.h"
 
-status manager_init(Manager *m)
+#include <stdio.h>
+
+#include "debug.h"
+#include "config.h"
+#include "types.h"
+#include "common.h"
+#include "hero.h"
+#include "scene.h"
+#include "fov.h"
+
+int manager_init(Manager *m)
 {
     log_info("manager initializating...");
     // init window with config properties
@@ -16,7 +26,7 @@ status manager_init(Manager *m)
     hero_init(&m->hero);
 
     // allocate scene
-    status st = scene_allocate(NULL, &m->scene, GAME_NAVIGATION_SCENE_INIT);
+    int st = scene_allocate(NULL, &m->scene, GAME_NAVIGATION_SCENE_INIT);
     if (!st)
     {
         return st;
@@ -24,7 +34,7 @@ status manager_init(Manager *m)
 
     // init view
     m->fov = (FieldOfVision){0};
-    view_init(&m->fov, &m->hero.volume);
+    fov_init(&m->fov, &m->hero.volume);
 
     DBG("manager init");
     return STATUS_OK;

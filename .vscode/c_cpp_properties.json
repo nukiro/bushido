@@ -3,6 +3,7 @@
     {
       "name": "Linux",
       "includePath": [
+        "/usr/local/include", // for libraries
         "${workspaceFolder}/bushido/tests/**",
         "${workspaceFolder}/bushido/include"
       ],

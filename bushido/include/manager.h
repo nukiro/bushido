@@ -1,36 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-#include <raylib.h>
+struct Manager;
 
-#include "debug.h"
-#include "config.h"
-#include "scene.h"
-#include "view.h"
-#include "hero.h"
-
-typedef struct Navigation
-{
-    char current[6];
-    char previous[6];
-} Navigation;
-
-typedef struct Window
-{
-    const char *title;
-    int width;
-    int height;
-} Window;
-
-typedef struct Manager
-{
-    Window window;
-    Navigation navigation;
-    Scene *scene;
-    FieldOfVision fov;
-    Hero hero;
-
-} Manager;
-
-status manager_init(Manager *m);
-void manager_close(Manager *m);
+int manager_init(struct Manager *m);
+void manager_close(struct Manager *m);

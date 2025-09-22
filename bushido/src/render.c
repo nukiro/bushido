@@ -1,6 +1,11 @@
 #include "render.h"
 
-void render(const Game *g, Manager *m)
+#include "types.h"
+#include "render/rconfig.h"
+#include "render/rdev.h"
+#include "render/rhero.h"
+
+void render(Manager *m)
 {
     BeginDrawing();
     ClearBackground(RENDER_COLOR_BACKGROUND);
@@ -16,7 +21,7 @@ void render(const Game *g, Manager *m)
     EndMode3D();
 
 #ifdef DEBUG
-    render_dev_insight(g, m);
+    render_dev_insight(m);
 #endif
 
     EndDrawing();
