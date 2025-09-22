@@ -1,11 +1,8 @@
 #pragma once
 
 #include <raylib.h>
-#include <raymath.h>
 
-#include "config.h"
-#include "debug.h"
-#include "volume.h"
+struct Volume;
 
 typedef enum
 {
@@ -17,7 +14,7 @@ typedef enum
 typedef struct FieldOfVision
 {
     View view;
-    Camera camera;
+    Camera camera; // raylib Camera3D
 } FieldOfVision;
 
-void view_init(FieldOfVision *fov, const Volume *volume);
+void fov_init(FieldOfVision *fov, const struct Volume *volume);

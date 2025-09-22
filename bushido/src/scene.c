@@ -1,5 +1,11 @@
 #include "scene.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "logger.h"
+#include "debug.h"
+
 status scene_allocate(alloc_fn af, Scene **scene, const char *id)
 {
     *scene = NULL;

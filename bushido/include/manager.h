@@ -1,13 +1,9 @@
 #pragma once
 
-#include <stdio.h>
-#include <raylib.h>
-
-#include "debug.h"
-#include "config.h"
-#include "scene.h"
-#include "view.h"
+struct Scene;
+#include "fov.h"
 #include "hero.h"
+#include "status.h"
 
 typedef struct Navigation
 {
@@ -26,7 +22,7 @@ typedef struct Manager
 {
     Window window;
     Navigation navigation;
-    Scene *scene;
+    struct Scene *scene;
     FieldOfVision fov;
     Hero hero;
 

@@ -1,4 +1,11 @@
-#include "view.h"
+#include "fov.h"
+
+#include <raylib.h>
+#include <raymath.h>
+
+#include "config.h"
+#include "volume.h"
+#include "debug.h"
 
 #define VIEW_POSITION_AERIAL(x) (Vector3){-0.001f, x, -0.001f}
 #define VIEW_POSITION_GROUND(x) \
@@ -29,7 +36,7 @@ static Vector3 position(const Vector3 *t, View p, float z)
     return Vector3Add(*t, c);
 }
 
-void view_init(FieldOfVision *fov, const Volume *v)
+void fov_init(FieldOfVision *fov, const Volume *v)
 {
     // use in positiion method to get camera Vector3 position
     fov->view = GAME_FOV_VIEW;

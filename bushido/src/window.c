@@ -1,5 +1,13 @@
 #include "window.h"
 
+#include <raylib.h>
+
+#include "game.h"
+#include "manager.h"
+#include "render.h"
+#include "config.h"
+#include "debug.h"
+
 void window_init(const Game *g, Manager *m)
 {
     InitWindow(m->window.width, m->window.height, g->title);

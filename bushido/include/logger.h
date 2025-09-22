@@ -1,9 +1,5 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-
 #include "status.h"
 
 void log_debug(const char *fmt, ...);

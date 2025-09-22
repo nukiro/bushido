@@ -1,7 +1,5 @@
 #pragma once
 
-#include <raylib.h>
-
 #include "volume.h"
 
 typedef struct Hero

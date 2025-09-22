@@ -1,9 +1,6 @@
 #pragma once
 
-#include "config.h"
 #include "status.h"
-#include "logger.h"
-#include "debug.h"
 
 typedef struct Game
 {

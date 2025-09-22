@@ -1,8 +1,12 @@
 #include "logger.h"
 
-#define LOG_DEBUG "DEBUG"
-#define LOG_INFO "INFO"
-#define LOG_ERROR "ERROR"
+#include <stdio.h>
+#include <stdarg.h>
+#include <time.h>
+
+#define GAME_LOG_DEBUG "DEBUG"
+#define GAME_LOG_INFO "INFO"
+#define GAME_LOG_ERROR "ERROR"
 
 static FILE *s_fp = NULL;
 
@@ -60,7 +64,7 @@ void log_debug(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_DEBUG, fmt, ap);
+    log_message(GAME_LOG_DEBUG, fmt, ap);
     va_end(ap);
 }
 
@@ -68,7 +72,7 @@ void log_info(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_INFO, fmt, ap);
+    log_message(GAME_LOG_INFO, fmt, ap);
     va_end(ap);
 }
 
@@ -76,7 +80,7 @@ void log_error(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_ERROR, fmt, ap);
+    log_message(GAME_LOG_ERROR, fmt, ap);
     va_end(ap);
 }
 

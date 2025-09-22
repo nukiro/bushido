@@ -1,5 +1,7 @@
 #include "hero.h"
 
+#include <raylib.h>
+
 void hero_init(Hero *h)
 {
     h->volume = (Volume){

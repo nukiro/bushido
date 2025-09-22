@@ -1,12 +1,6 @@
 #pragma once
 
-#include <raylib.h>
+struct Game;
+struct Manager;
 
-#include "game.h"
-#include "manager.h"
-
-#include "render/rconfig.h"
-#include "render/rdev.h"
-#include "render/rhero.h"
-
-void render(const Game *game, Manager *manager);
+void render(const struct Game *game, struct Manager *manager);

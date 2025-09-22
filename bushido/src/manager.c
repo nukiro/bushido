@@ -1,5 +1,13 @@
 #include "manager.h"
 
+#include <stdio.h>
+
+#include "debug.h"
+#include "config.h"
+#include "scene.h"
+#include "fov.h"
+#include "hero.h"
+
 status manager_init(Manager *m)
 {
     log_info("manager initializating...");
@@ -24,7 +32,7 @@ status manager_init(Manager *m)
 
     // init view
     m->fov = (FieldOfVision){0};
-    view_init(&m->fov, &m->hero.volume);
+    fov_init(&m->fov, &m->hero.volume);
 
     DBG("manager init");
     return STATUS_OK;

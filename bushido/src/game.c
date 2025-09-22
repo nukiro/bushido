@@ -1,5 +1,10 @@
 #include "game.h"
 
+#include "config.h"
+#include "status.h"
+#include "logger.h"
+#include "debug.h"
+
 status game_init(Game *g)
 {
     log_info("game initializing...");

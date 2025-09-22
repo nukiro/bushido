@@ -1,5 +1,12 @@
 #include "render/rdev.h"
 
+#include <raylib.h>
+#include <stdio.h>
+
+#include "game.h"
+#include "manager.h"
+#include "render/rconfig.h"
+
 static int dev_position_y(int n)
 {
     return RENDER_DEV_INSIGHT_MARGIN_Y + ((RENDER_DEV_INSIGHT_FONT_SIZE + RENDER_DEV_INSIGHT_SEPARATOR) * n);
