@@ -119,7 +119,7 @@ SUBCMD="$1"; shift || true
 # --- defaults ---
 CC=( gcc )
 STD=( gnu23 )
-CFLAGS=( -Wall -Wextra )
+CFLAGS=( -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations)
 LDFLAGS=( -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 )
 
 WERROR=0

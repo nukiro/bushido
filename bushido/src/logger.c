@@ -1,8 +1,14 @@
 #include "logger.h"
 
-#define LOG_DEBUG "DEBUG"
-#define LOG_INFO "INFO"
-#define LOG_ERROR "ERROR"
+#include <stdio.h>
+#include <stdarg.h>
+#include <time.h>
+
+#include "common.h"
+
+#define GAME_LOG_DEBUG "DEBUG"
+#define GAME_LOG_INFO "INFO"
+#define GAME_LOG_ERROR "ERROR"
 
 static FILE *s_fp = NULL;
 
@@ -37,7 +43,7 @@ static void log_message(const char *category, const char *fmt, va_list ap)
 
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_message}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        fprintf(stderr, "[ERROR] {log_message}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
         return;
     }
 
@@ -60,7 +66,7 @@ void log_debug(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_DEBUG, fmt, ap);
+    log_message(GAME_LOG_DEBUG, fmt, ap);
     va_end(ap);
 }
 
@@ -68,7 +74,7 @@ void log_info(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_INFO, fmt, ap);
+    log_message(GAME_LOG_INFO, fmt, ap);
     va_end(ap);
 }
 
@@ -76,11 +82,11 @@ void log_error(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
-    log_message(LOG_ERROR, fmt, ap);
+    log_message(GAME_LOG_ERROR, fmt, ap);
     va_end(ap);
 }
 
-status log_open(const char *path)
+int log_open(const char *path)
 {
 #ifdef TEST
     return STATUS_OK;
@@ -98,7 +104,7 @@ status log_open(const char *path)
     s_fp = fopen(path, "w");
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_open}: %s\n", status_str(STATUS_ERR_FILE_NOT_OPEN));
+        fprintf(stderr, "[ERROR] {log_open}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
         return STATUS_ERR_FILE_NOT_OPEN;
     }
     return STATUS_OK;

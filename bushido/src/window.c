@@ -1,5 +1,10 @@
 #include "window.h"
 
+#include "types.h"
+#include "render.h"
+#include "config.h"
+#include "debug.h"
+
 void window_init(const Game *g, Manager *m)
 {
     InitWindow(m->window.width, m->window.height, g->title);
@@ -9,12 +14,12 @@ void window_init(const Game *g, Manager *m)
     DBG("game fps: %d", GAME_FPS);
 }
 
-void window_loop(const Game *g, Manager *m)
+void window_loop(Manager *m)
 {
     DBG("window loop start");
     while (!WindowShouldClose())
     {
-        render(g, m);
+        render(m);
     }
     DBG("window loop end");
 }

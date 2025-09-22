@@ -1,6 +1,6 @@
 #pragma once
 
-#include <raylib.h>
+struct Color;
 
 #define RENDER_COLOR_BACKGROUND (Color){25, 25, 25, 1}
 #define RENDER_COLOR_ALPHA 100

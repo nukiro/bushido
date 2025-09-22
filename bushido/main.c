@@ -3,6 +3,7 @@
 #include "game.h"
 #include "manager.h"
 #include "window.h"
+#include "types.h"
 
 int main(void)
 {
@@ -19,7 +20,7 @@ int main(void)
 
     window_init(&game, &manager);
 
-    window_loop(&game, &manager);
+    window_loop(&manager);
 
     window_close();
 

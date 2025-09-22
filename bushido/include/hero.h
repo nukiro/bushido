@@ -1,12 +1,5 @@
 #pragma once
 
-#include <raylib.h>
+struct Hero;
 
-#include "volume.h"
-
-typedef struct Hero
-{
-    Volume volume;
-} Hero;
-
-void hero_init(Hero *hero);
+void hero_init(struct Hero *hero);
