@@ -1,5 +1,63 @@
+// contains all structures
 #pragma once
 
-#include <stddef.h>
+#include <raylib.h>
 
-typedef void *(*alloc_fn)(size_t); // allocator signature
+typedef struct Game
+{
+    const char *tag;     // repository version use to build the game
+    const char *release; // game build version
+    const char *title;
+} Game;
+
+typedef struct Navigation
+{
+    char current[6];
+    char previous[6];
+} Navigation;
+
+typedef struct Window
+{
+    const char *title;
+    int width;
+    int height;
+} Window;
+
+typedef enum
+{
+    Default,
+    Aerial,
+    Ground,
+} View;
+
+typedef struct FieldOfVision
+{
+    View view;
+    Camera camera; // raylib Camera3D
+} FieldOfVision;
+
+typedef struct Volume
+{
+    Vector3 position;
+    Vector3 box;
+} Volume;
+
+typedef struct Hero
+{
+    Volume volume;
+} Hero;
+
+typedef struct Scene
+{
+    char id[6];
+} Scene;
+
+typedef struct Manager
+{
+    Window window;
+    Navigation navigation;
+    Scene *scene;
+    FieldOfVision fov;
+    Hero hero;
+
+} Manager;

@@ -4,6 +4,9 @@
 #include <stdarg.h>
 #include <time.h>
 
+#include "common.h"
+#include "status.h"
+
 #define GAME_LOG_DEBUG "DEBUG"
 #define GAME_LOG_INFO "INFO"
 #define GAME_LOG_ERROR "ERROR"
@@ -84,7 +87,7 @@ void log_error(const char *fmt, ...)
     va_end(ap);
 }
 
-status log_open(const char *path)
+int log_open(const char *path)
 {
 #ifdef TEST
     return STATUS_OK;

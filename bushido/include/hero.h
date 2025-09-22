@@ -1,10 +1,5 @@
 #pragma once
 
-#include "volume.h"
+struct Hero;
 
-typedef struct Hero
-{
-    Volume volume;
-} Hero;
-
-void hero_init(Hero *hero);
+void hero_init(struct Hero *hero);

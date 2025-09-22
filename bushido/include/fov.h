@@ -3,18 +3,6 @@
 #include <raylib.h>
 
 struct Volume;
+struct FieldOfVision;
 
-typedef enum
-{
-    Default,
-    Aerial,
-    Ground,
-} View;
-
-typedef struct FieldOfVision
-{
-    View view;
-    Camera camera; // raylib Camera3D
-} FieldOfVision;
-
-void fov_init(FieldOfVision *fov, const struct Volume *volume);
+void fov_init(struct FieldOfVision *fov, const struct Volume *hero);

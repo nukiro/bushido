@@ -2,7 +2,7 @@
 
 #include <raylib.h>
 
-#include "manager.h"
+#include "types.h"
 
 #include "render/rconfig.h"
 #include "render/rdev.h"

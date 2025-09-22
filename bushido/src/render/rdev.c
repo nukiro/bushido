@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include <stdio.h>
 
-#include "manager.h"
+#include "types.h"
 #include "render/rconfig.h"
 
 static int dev_position_y(int n)

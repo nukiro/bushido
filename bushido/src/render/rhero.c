@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#include "volume.h"
+#include "types.h"
 
 #include "render/rutils.h"
 #include "render/rconfig.h"

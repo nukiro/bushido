@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "types.h"
+#include "common.h"
 #include "logger.h"
 #include "debug.h"
 
-status scene_allocate(alloc_fn af, Scene **scene, const char *id)
+int scene_allocate(alloc_fn af, Scene **scene, const char *id)
 {
     *scene = NULL;
 

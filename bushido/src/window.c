@@ -1,9 +1,6 @@
 #include "window.h"
 
-#include <raylib.h>
-
-#include "game.h"
-#include "manager.h"
+#include "types.h"
 #include "render.h"
 #include "config.h"
 #include "debug.h"

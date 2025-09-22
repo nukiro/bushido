@@ -1,10 +1,9 @@
 #include "fov.h"
 
-#include <raylib.h>
 #include <raymath.h>
 
 #include "config.h"
-#include "volume.h"
+#include "types.h"
 #include "debug.h"
 
 #define VIEW_POSITION_AERIAL(x) (Vector3){-0.001f, x, -0.001f}

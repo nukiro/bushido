@@ -1,6 +1,6 @@
 #include "hero.h"
 
-#include <raylib.h>
+#include "types.h"
 
 void hero_init(Hero *h)
 {

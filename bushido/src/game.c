@@ -1,11 +1,12 @@
 #include "game.h"
 
+#include "types.h"
+#include "common.h"
 #include "config.h"
-#include "status.h"
 #include "logger.h"
 #include "debug.h"
 
-status game_init(Game *g)
+int game_init(Game *g)
 {
     log_info("game initializing...");
     g->tag = GAME_TAG;

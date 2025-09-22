@@ -1,8 +1,10 @@
 #include "render/rutils.h"
 
+#include <raylib.h>
 #include <raymath.h>
 
-#include "volume.h"
+#include "types.h"
+#include "common.h"
 #include "render/rconfig.h"
 
 void axis(const Volume *v)

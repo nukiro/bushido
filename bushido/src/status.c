@@ -1,6 +1,7 @@
 #include "status.h"
+#include "common.h"
 
-const char *status_str(status status)
+const char *status_str(int status)
 {
     if (status > 0)
         return "unknown status value";
