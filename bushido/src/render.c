@@ -5,6 +5,8 @@
 #include "render/rdev.h"
 #include "render/rhero.h"
 
+#include <stdio.h>
+
 void render(Manager *m)
 {
     BeginDrawing();

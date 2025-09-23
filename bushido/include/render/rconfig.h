@@ -13,8 +13,6 @@ struct Color;
 #define RENDER_COLOR_BLUE \
     (Color) { 0, 0, 255, RENDER_COLOR_ALPHA }
 
-#define RENDER_DEV_TABLE_COLUMN_NAME 16          // fifteen character string and null value
-#define RENDER_DEV_TABLE_COLUMN_VALUE "%-15.15s" // fifteen blank spaces
 #define RENDER_DEV_INSIGHT_FONT_SIZE 10
 #define RENDER_DEV_INSIGHT_MARGIN_X 5
 #define RENDER_DEV_INSIGHT_MARGIN_Y 5

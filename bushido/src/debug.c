@@ -1,6 +1,8 @@
 #include "debug.h"
 
-status debug_load_yaml()
+#include "common.h"
+
+int debug_load_yaml()
 {
     return STATUS_OK;
 }

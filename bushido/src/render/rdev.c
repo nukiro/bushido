@@ -10,12 +10,12 @@ static int dev_position_y(int n)
     return RENDER_DEV_INSIGHT_MARGIN_Y + ((RENDER_DEV_INSIGHT_FONT_SIZE + RENDER_DEV_INSIGHT_SEPARATOR) * n);
 }
 
-static const char *format_text(char buf[RENDER_DEV_TABLE_COLUMN_NAME], const char *s)
+static const char *format_text(char buf[16], const char *s)
 {
     if (!s)
         s = "< NO-KEY >";
 
-    snprintf(buf, RENDER_DEV_TABLE_COLUMN_NAME, RENDER_DEV_TABLE_COLUMN_VALUE, s);
+    snprintf(buf, 16, "%-15.15s", s);
 
     return buf;
 }
@@ -32,8 +32,9 @@ static void origin()
 
 void render_dev_insight(const Manager *m)
 {
-    char buf[RENDER_DEV_TABLE_COLUMN_NAME];
-    DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(0), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
+    char buf[16]; // fifteen character string and null value
+    DrawText(TextFormat("%s%d", format_text(buf, "FPS"), GetFPS()), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(0), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
+    DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(1), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
 }
 
 void render_dev_graphics()
