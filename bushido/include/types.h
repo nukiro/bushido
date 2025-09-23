@@ -4,6 +4,15 @@
 #include <raylib.h>
 #include <raymath.h>
 
+typedef struct Configuration
+{
+    int window_width;
+    int window_height;
+    const char *navigation_scene_init;
+    int fov_view;
+    float fov_zoom;
+} Configuration;
+
 typedef struct Game
 {
     const char *tag;     // repository version use to build the game

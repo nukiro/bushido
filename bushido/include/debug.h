@@ -7,3 +7,6 @@
 #else
 #define DBG(...) ((void)0)
 #endif
+
+struct Configuration;
+int debug_init(struct Configuration *c);

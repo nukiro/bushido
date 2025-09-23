@@ -43,7 +43,7 @@ static void log_message(const char *category, const char *fmt, va_list ap)
 
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_message}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
+        fprintf(stderr, "\x1b[31m[ERROR] {log_message}: %d\x1b[0m\n", STATUS_ERR_FILE_NOT_OPEN);
         return;
     }
 
@@ -86,7 +86,7 @@ void log_error(const char *fmt, ...)
     va_end(ap);
 }
 
-int log_open(const char *path)
+int log_init(const char *path)
 {
 #ifdef TEST
     return STATUS_OK;
@@ -94,7 +94,7 @@ int log_open(const char *path)
 
     if (!path)
     {
-        fprintf(stderr, "[ERROR] {log_open}: path is required\n");
+        fprintf(stderr, "\x1b[31m[ERROR] {log_open}: path is required\x1b[0m\n");
         return STATUS_ERR_FILE_NOT_OPEN;
     }
     // already open
@@ -104,7 +104,7 @@ int log_open(const char *path)
     s_fp = fopen(path, "w");
     if (!s_fp)
     {
-        fprintf(stderr, "[ERROR] {log_open}: %d\n", STATUS_ERR_FILE_NOT_OPEN);
+        fprintf(stderr, "\x1b[31m[ERROR] {log_open}: %d\x1b[0m\n", STATUS_ERR_FILE_NOT_OPEN);
         return STATUS_ERR_FILE_NOT_OPEN;
     }
     return STATUS_OK;

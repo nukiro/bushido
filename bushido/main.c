@@ -4,10 +4,19 @@
 #include "manager.h"
 #include "window.h"
 #include "types.h"
+#include "debug.h"
 
 int main(void)
 {
-    if (!log_open(GAME_LOG_FILE))
+    Configuration config = {0};
+#ifdef DEBUG
+    if (!debug_init(&config))
+    {
+        return 1;
+    }
+#endif
+
+    if (!log_init(GAME_LOG_FILE))
         return 1;
 
     Game game = {0};
