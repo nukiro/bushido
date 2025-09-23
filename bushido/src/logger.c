@@ -86,22 +86,16 @@ void log_error(const char *fmt, ...)
     va_end(ap);
 }
 
-int log_init(const char *path)
+int log_init()
 {
 #ifdef TEST
     return STATUS_OK;
 #endif
 
-    if (!path)
-    {
-        fprintf(stderr, "\x1b[31m[ERROR] {log_open}: path is required\x1b[0m\n");
-        return STATUS_ERR_FILE_NOT_OPEN;
-    }
-    // already open
     if (s_fp)
         return STATUS_OK;
 
-    s_fp = fopen(path, "w");
+    s_fp = fopen("debug.log", "w");
     if (!s_fp)
     {
         fprintf(stderr, "\x1b[31m[ERROR] {log_open}: %d\x1b[0m\n", STATUS_ERR_FILE_NOT_OPEN);

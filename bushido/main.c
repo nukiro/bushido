@@ -8,6 +8,9 @@
 
 int main(void)
 {
+    if (!log_init())
+        return 1;
+
     Configuration config = {0};
 #ifdef DEBUG
     if (!debug_init(&config))
@@ -15,9 +18,6 @@ int main(void)
         return 1;
     }
 #endif
-
-    if (!log_init(GAME_LOG_FILE))
-        return 1;
 
     Game game = {0};
     if (!game_init(&game))

@@ -1,7 +1,5 @@
 #pragma once
 
-#define GAME_LOG_FILE "dev.log"
-
 #define GAME_TITLE "bushido"
 #define GAME_TAG "no-tag"
 #define GAME_RELEASE "no-release"
