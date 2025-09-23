@@ -10,18 +10,6 @@ int game_init(Game *g)
 {
     log_info("game initializing...");
 
-    Configuration config = {0};
-#ifdef DEBUG
-    if (!debug_init(&config))
-    {
-        log_error("initalizing debug");
-        return STATUS_ERR_FILE_DEBUG;
-    }
-#endif
-
-    // it will be set with default, debug or release configuration
-    g->config = config;
-
     g->tag = GAME_TAG;
     g->release = GAME_RELEASE;
 

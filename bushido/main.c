@@ -11,15 +11,23 @@ int main(void)
     if (!log_init())
         return 1;
 
+    Configuration config = {0};
+#ifdef DEBUG
+    if (!debug_init(&config))
+    {
+        return 1;
+    }
+#endif
+
     Game game = {0};
     if (!game_init(&game))
         return 1;
 
     Manager manager = {0};
-    if (!manager_init(&manager))
+    if (!manager_init(&manager, &config))
         return 1;
 
-    window_init(&game, &manager);
+    window_init(&game, &manager, &config);
 
     window_loop(&manager);
 

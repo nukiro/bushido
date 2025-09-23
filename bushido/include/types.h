@@ -6,6 +6,8 @@
 
 typedef struct Configuration
 {
+    int fps;
+    const char *assets;
     int window_width;
     int window_height;
     const char *navigation_scene_init;
@@ -15,7 +17,6 @@ typedef struct Configuration
 
 typedef struct Game
 {
-    Configuration config;
     const char *tag;     // repository version use to build the game
     const char *release; // game build version
     const char *title;
