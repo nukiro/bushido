@@ -1,13 +1,13 @@
-#include "render/rdev.h"
+#include "render/rdebug.h"
 
 #include <stdio.h>
 
 #include "types.h"
 #include "render/rconfig.h"
 
-static int dev_position_y(int n)
+static int position_y(int n)
 {
-    return RENDER_DEV_INSIGHT_MARGIN_Y + ((RENDER_DEV_INSIGHT_FONT_SIZE + RENDER_DEV_INSIGHT_SEPARATOR) * n);
+    return RENDER_DEBUG_INSIGHT_MARGIN_Y + ((RENDER_DEBUG_INSIGHT_FONT_SIZE + RENDER_DEBUG_INSIGHT_SEPARATOR) * n);
 }
 
 static const char *format_text(char buf[16], const char *s)
@@ -30,14 +30,14 @@ static void origin()
     DrawLine3D((Vector3){-0.5f, 0.0f, 0.5f}, (Vector3){0.5f, 0.0f, 0.5f}, RENDER_COLOR_DEBUG);
 }
 
-void render_dev_insight(const Manager *m)
+void render_debug_insight(const Manager *m)
 {
     char buf[16]; // fifteen character string and null value
-    DrawText(TextFormat("%s%d", format_text(buf, "FPS"), GetFPS()), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(0), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
-    DrawText(TextFormat("%s%dx%d", format_text(buf, "window"), m->window.width, m->window.height), RENDER_DEV_INSIGHT_MARGIN_X, dev_position_y(1), RENDER_DEV_INSIGHT_FONT_SIZE, LIME);
+    DrawText(TextFormat("%s%d", format_text(buf, "FPS"), GetFPS()), RENDER_DEBUG_INSIGHT_MARGIN_X, position_y(0), RENDER_DEBUG_INSIGHT_FONT_SIZE, LIME);
+    DrawText(TextFormat("%s%dx%d", format_text(buf, "WINDOW"), m->window.width, m->window.height), RENDER_DEBUG_INSIGHT_MARGIN_X, position_y(1), RENDER_DEBUG_INSIGHT_FONT_SIZE, LIME);
 }
 
-void render_dev_graphics()
+void render_debug_graphics()
 {
     origin();
 }
