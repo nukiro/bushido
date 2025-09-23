@@ -15,6 +15,7 @@ typedef struct Configuration
 
 typedef struct Game
 {
+    Configuration config;
     const char *tag;     // repository version use to build the game
     const char *release; // game build version
     const char *title;

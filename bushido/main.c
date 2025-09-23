@@ -11,14 +11,6 @@ int main(void)
     if (!log_init())
         return 1;
 
-    Configuration config = {0};
-#ifdef DEBUG
-    if (!debug_init(&config))
-    {
-        return 1;
-    }
-#endif
-
     Game game = {0};
     if (!game_init(&game))
         return 1;
