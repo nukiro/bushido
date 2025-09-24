@@ -12,6 +12,7 @@ int main(void)
         return 1;
 
     Configuration config = {0};
+    config_init(&config);
 #ifdef DEBUG
     if (!debug_init(&config))
     {
