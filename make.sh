@@ -120,7 +120,7 @@ SUBCMD="$1"; shift || true
 CC=( gcc )
 STD=( gnu23 )
 CFLAGS=( -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations)
-LDFLAGS=( -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 )
+LDFLAGS=( -lyaml -lraylib -lm -ldl -lpthread -lGL -lrt -lX11 )
 
 WERROR=0
 RUN=0

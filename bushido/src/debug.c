@@ -1,5 +1,7 @@
 #include "debug.h"
 
+#include <yaml.h>
+
 #include "common.h"
 #include "types.h"
 #include "debug.h"
@@ -9,13 +11,16 @@ int debug_init(Configuration *c)
 {
     DBG("debug mode on");
 
-    c->fps = GAME_FPS;
-    c->assets = GAME_PATH_ASSETS;
-    c->fov_view = 1;
-    c->fov_zoom = 30.0f;
-    c->window_width = 1920;
-    c->window_height = 1080;
-    c->navigation_scene_init = GAME_NAVIGATION_SCENE_INIT;
+    FILE *file = fopen("debug.yaml", "r");
+    // if we are in debug mode, but no debug configuration is set
+    // just return OK as the default configuration is applied
+    if (!file)
+    {
+        DBG("no debug configuration file, default configuration applied");
+        return STATUS_OK;
+    }
+
+    fclose(file);
 
     return STATUS_OK;
 }
