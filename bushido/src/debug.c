@@ -6,6 +6,7 @@
 #include "types.h"
 #include "debug.h"
 #include "config.h"
+#include "utils.h"
 
 int debug_init(Configuration *c)
 {
@@ -20,7 +21,92 @@ int debug_init(Configuration *c)
         return STATUS_OK;
     }
 
+    yaml_parser_t parser;
+    yaml_token_t token;
+
+    // Initialize parser
+    if (!yaml_parser_initialize(&parser))
+    {
+        log_error("failed to initialize YAML parser");
+        fclose(file);
+        return STATUS_ERR_FILE_DEBUG;
+    }
+
+    yaml_parser_set_input_file(&parser, file);
+
+    char current_key[256] = {0};
+    int expecting_value = 0;
+
+    // Parse tokens
+    do
+    {
+        yaml_parser_scan(&parser, &token);
+
+        switch (token.type)
+        {
+        case YAML_KEY_TOKEN:
+            expecting_value = 0;
+            break;
+
+        case YAML_VALUE_TOKEN:
+            expecting_value = 1;
+            break;
+
+        case YAML_SCALAR_TOKEN:
+            if (!expecting_value)
+            {
+                // This is a key
+                strncpy(current_key, (char *)token.data.scalar.value, sizeof(current_key) - 1);
+            }
+            else
+            {
+                // This is a value
+                char *value = (char *)token.data.scalar.value;
+
+                if (strcmp(current_key, "debugger") == 0)
+                {
+                    // 50 characters max
+                    strncpy(c->debugger, value, sizeof(c->debugger) - 1);
+                }
+                else if (strcmp(current_key, "width") == 0)
+                {
+                    c->window_width = atoi(value);
+                }
+                else if (strcmp(current_key, "height") == 0)
+                {
+                    c->window_height = atoi(value);
+                }
+                else if (strcmp(current_key, "vsync") == 0)
+                {
+                    // config.vsync = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
+                }
+                expecting_value = 0;
+            }
+            break;
+
+        default:
+            break;
+        }
+
+        if (token.type != YAML_STREAM_END_TOKEN)
+        {
+            yaml_token_delete(&token);
+        }
+    } while (token.type != YAML_STREAM_END_TOKEN);
+
+    yaml_token_delete(&token);
+    yaml_parser_delete(&parser);
+
     fclose(file);
+
+    if (is_array_empty(c->debugger, 51))
+    {
+        DBG("NOT DEBUGGER");
+        log_error("failed to find debugger property in debug config file");
+        return STATUS_ERR_FILE_DEBUG;
+    }
+
+    DBG("debugger %s", c->debugger);
 
     return STATUS_OK;
 }

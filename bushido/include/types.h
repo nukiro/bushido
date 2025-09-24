@@ -6,6 +6,7 @@
 
 typedef struct Configuration
 {
+    char debugger[51];
     int fps;
     const char *assets;
     int window_width;
