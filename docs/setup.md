@@ -46,6 +46,12 @@ For other building options, check [this link](https://github.com/raysan5/raylib/
 
 ### Build the project
 
+### Install project dependencies
+
+```shell
+sudo apt install libyaml-dev
+```
+
 Before building it, install it: `bash make.sh install`. Run it once (no need to run it before following builds).
 
 Compile: `bash make.sh dev`.
