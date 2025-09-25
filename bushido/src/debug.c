@@ -99,7 +99,7 @@ int debug_init(Configuration *c)
 
     fclose(file);
 
-    if (is_array_empty(c->debugger, 51))
+    if (is_array_empty(c->debugger, sizeof(c->debugger)))
     {
         DBG("NOT DEBUGGER");
         log_error("failed to find debugger property in debug config file");
