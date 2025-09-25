@@ -65,7 +65,7 @@ int debug_init(Configuration *c)
                 if (strcmp(current_key, "debugger") == 0)
                 {
                     // 50 characters max
-                    strncpy(c->debugger, value, sizeof(c->debugger) - 1);
+                    snprintf(c->debugger, sizeof(c->debugger), "%s", value);
                 }
                 else if (strcmp(current_key, "width") == 0)
                 {
