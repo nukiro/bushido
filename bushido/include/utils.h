@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdbool.h>
 
 // Check if a return status from a function execution returned an status error or not
 bool was_executed_successfully(int status);
