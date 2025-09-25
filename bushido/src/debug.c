@@ -101,7 +101,7 @@ int debug_init(Configuration *c)
     if (is_array_empty(c->debugger, sizeof(c->debugger)))
     {
         DBG("debugger field is empty in configuration");
-        log_error("failed to find debugger property in debug config file");
+        log_error("debugger property is empty in debug config file");
         return STATUS_ERR_FILE_DEBUG;
     }
 
