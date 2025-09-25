@@ -35,17 +35,17 @@ static Vector3 position(const Vector3 *t, View p, float z)
     return Vector3Add(*t, c);
 }
 
-void fov_init(FieldOfVision *fov, const Volume *v)
+void fov_init(FieldOfVision *fov, const Volume *v, const Configuration *c)
 {
     // use in positiion method to get camera Vector3 position
-    fov->view = GAME_FOV_VIEW;
+    fov->view = c->fov_view;
 
     Vector3 t = target(v);
 
-    fov->camera.position = position(&t, fov->view, GAME_FOV_ZOOM);
+    fov->camera.position = position(&t, fov->view, c->fov_zoom);
     fov->camera.target = t;
     fov->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-    fov->camera.fovy = GAME_FOV_ZOOM;
+    fov->camera.fovy = c->fov_zoom;
     fov->camera.projection = CAMERA_ORTHOGRAPHIC;
 
     DBG("view init");
