@@ -34,7 +34,7 @@ static void origin()
 
 void render_debug_insight(const Manager *m)
 {
-    char buf[16]; // fifteen character string and null value
+    char buf[RENDER_DEBUG_TEXT_BUFFER_SIZE]; // fifteen character string and null value
     DrawText(TextFormat("%s%d", format_text(buf, "FPS"), GetFPS()), RENDER_DEBUG_INSIGHT_MARGIN_X, position_y(0), RENDER_DEBUG_INSIGHT_FONT_SIZE, LIME);
     DrawText(TextFormat("%s%dx%d", format_text(buf, "WINDOW"), m->window.width, m->window.height), RENDER_DEBUG_INSIGHT_MARGIN_X, position_y(1), RENDER_DEBUG_INSIGHT_FONT_SIZE, LIME);
 }
