@@ -8,6 +8,11 @@
 
 typedef struct Configuration
 {
+    /**
+     * Debugger name.
+     * Required (non-empty) only when compiled with debug support (DEBUG defined).
+     * Optional otherwise.
+     */
     char debugger[DEBUGGER_NAME_MAX_LENGTH];
     int fps;
     const char *assets;
@@ -16,6 +21,7 @@ typedef struct Configuration
     const char *navigation_scene_init;
     int fov_view;
     float fov_zoom;
+    bool vsync;
 } Configuration;
 
 typedef struct Game

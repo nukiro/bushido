@@ -1,6 +1,7 @@
 #include "debug.h"
 
 #include <yaml.h>
+#include <stdbool.h>
 
 #include "common.h"
 #include "types.h"
@@ -9,6 +10,19 @@
 
 #define MAX_YAML_KEY_SIZE 256
 
+/**
+ * Initializes debug configuration from "debug.yaml".
+ *
+ * Loads debug settings into the provided Configuration struct.
+ *
+ * Requirements:
+ *   - When compiled with debug support (DEBUG defined), the YAML configuration file
+ *     must contain a non-empty "debugger" field. If missing or empty, returns STATUS_ERR_FILE_DEBUG.
+ *   - When not in debug mode, "debugger" is optional.
+ *
+ * @param c Pointer to Configuration struct to populate.
+ * @return STATUS_OK on success, STATUS_ERR_FILE_DEBUG on error.
+ */
 int debug_init(Configuration *c)
 {
     DBG("debug mode on");
@@ -56,7 +70,9 @@ int debug_init(Configuration *c)
         case YAML_SCALAR_TOKEN:
             if (!expecting_value)
             {
-                // This is a key
+                // Copy the key to current_key, ensuring no overflow
+                // strncpy doesnot set the last character to null if the source string is too long
+                // but do not care too much here as we will work with fixed size strings
                 strncpy(current_key, (char *)token.data.scalar.value, sizeof(current_key) - 1);
             }
             else
@@ -79,7 +95,11 @@ int debug_init(Configuration *c)
                 }
                 else if (strcmp(current_key, "vsync") == 0)
                 {
-                    // vsync key found, but not handled. (Removed empty block to avoid confusion.)
+                    c->vsync = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0) ? true : false;
+                }
+                else
+                {
+                    DBG("unknown key in debug configuration: %s", current_key);
                 }
                 expecting_value = 0;
             }
