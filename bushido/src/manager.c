@@ -57,9 +57,10 @@ void manager_close(Manager *m)
 
 void it_should_init_close_manager(Test *t)
 {
-    Game g = {0};
+    Configuration c = {0};
+    config_init(&c);
     Manager m = {0};
-    bool status = manager_init(&m, &g);
+    bool status = manager_init(&m, &c);
 
     assert(t, status == 1, "manager_init() should return ok when the manager is initialized");
     assert(t, strcmp(m.navigation.current, GAME_NAVIGATION_SCENE_INIT) == 0, "manager_init() should initialize the current navigation");
