@@ -2,8 +2,10 @@
 
 #include "types.h"
 #include "render/rconfig.h"
-#include "render/rdev.h"
+#include "render/rdebug.h"
 #include "render/rhero.h"
+
+#include <stdio.h>
 
 void render(Manager *m)
 {
@@ -15,13 +17,13 @@ void render(Manager *m)
     render_hero(&m->hero.volume);
 
 #ifdef DEBUG
-    render_dev_graphics();
+    render_debug_graphics();
 #endif
 
     EndMode3D();
 
 #ifdef DEBUG
-    render_dev_insight(m);
+    render_debug_insight(m);
 #endif
 
     EndDrawing();

@@ -1,6 +1,6 @@
 # How to Setup the Project
 
-## For Develpment
+## For Development
 
 Update Ubuntu repositories and upgrade.
 
@@ -17,7 +17,7 @@ An **IDE**: `VSCode`
 
 **GitHub**
 
-Generate SSH Key `ssh-keygen -t ed25519 -C "email@test.com"`, copy it `cat .ssh/id_ed25519.pub` and add it to GitHub account.
+Generate SSH Key `ssh-keygen -t ed25519 -C "email@test.com"`, copy it `cat .ssh/id_ed25519.pub` and add it to GitHub account adding a register for Authentication and Signing type.
 
 Clone the project.
 
@@ -46,6 +46,12 @@ For other building options, check [this link](https://github.com/raysan5/raylib/
 
 ### Build the project
 
+### Install project dependencies
+
+```shell
+sudo apt install libyaml-dev
+```
+
 Before building it, install it: `bash make.sh install`. Run it once (no need to run it before following builds).
 
 Compile: `bash make.sh dev`.
@@ -53,15 +59,22 @@ Compile: `bash make.sh dev`.
 ### Git Configuration
 
 ```shell
-git config --global user.name "Carlos Aguilar Miguel"
-git config --global user.email "nukiro@yahoo.com"
+git config --global user.name "Your Name"
+git config --global user.email "your.email@domain.com"
 git config --global core.editor "vim"
 git config --global init.defaultBranch "main"
+git config --global pull.rebase true
+
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+git config --global commit.gpgsign true
+git config --global tag.gpgSign true
 
 git config --global alias.a "add"
 git config --global alias.st "status"
 git config --global alias.plo "pull origin"
 git config --global alias.pso "push origin"
 git config --global alias.co "checkout"
+git config --global alias.sw "switch"
 git config --global alias.cm "commit -m"
 ```

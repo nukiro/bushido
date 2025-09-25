@@ -4,6 +4,26 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#define DEBUGGER_NAME_MAX_LENGTH 51
+
+typedef struct Configuration
+{
+    /**
+     * Debugger name.
+     * Required (non-empty) only when compiled with debug support (DEBUG defined).
+     * Optional otherwise.
+     */
+    char debugger[DEBUGGER_NAME_MAX_LENGTH];
+    int fps;
+    const char *assets;
+    int window_width;
+    int window_height;
+    const char *navigation_scene_init;
+    int fov_view;
+    float fov_zoom;
+    bool vsync;
+} Configuration;
+
 typedef struct Game
 {
     const char *tag;     // repository version use to build the game

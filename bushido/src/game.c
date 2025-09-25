@@ -6,9 +6,23 @@
 #include "logger.h"
 #include "debug.h"
 
+// Applied default configuration to the game defined in config.h
+void config_init(Configuration *c)
+{
+    DBG("default configuration applied");
+    c->fps = GAME_FPS;
+    c->assets = GAME_PATH_ASSETS;
+    c->fov_view = GAME_FOV_VIEW;
+    c->fov_zoom = GAME_FOV_ZOOM;
+    c->window_width = GAME_WINDOW_WIDTH;
+    c->window_height = GAME_WINDOW_HEIGHT;
+    c->navigation_scene_init = GAME_NAVIGATION_SCENE_INIT;
+}
+
 int game_init(Game *g)
 {
     log_info("game initializing...");
+
     g->tag = GAME_TAG;
     g->release = GAME_RELEASE;
 

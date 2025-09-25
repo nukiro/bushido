@@ -11,6 +11,7 @@ enum
     STATUS_OK = 1,
     STATUS_ERR_ALLOC = -1001,
     STATUS_ERR_FILE_NOT_OPEN = -1002,
+    STATUS_ERR_FILE_DEBUG = -1003,
 }; // return status codes
 
 typedef void *(*alloc_fn)(size_t); // allocator signature
