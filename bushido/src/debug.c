@@ -79,6 +79,7 @@ int debug_init(Configuration *c)
                 }
                 else if (strcmp(current_key, "vsync") == 0)
                 {
+                    // vsync key found, but not handled. (Removed empty block to avoid confusion.)
                 }
                 expecting_value = 0;
             }
