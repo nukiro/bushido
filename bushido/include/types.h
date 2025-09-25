@@ -4,9 +4,11 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#define DEBUGGER_NAME_MAX_LENGTH 51
+
 typedef struct Configuration
 {
-    char debugger[51];
+    char debugger[DEBUGGER_NAME_MAX_LENGTH];
     int fps;
     const char *assets;
     int window_width;
