@@ -5,17 +5,19 @@
 #include "types.h"
 #include "render/rconfig.h"
 
+#define RENDER_DEBUG_TEXT_BUFFER_SIZE 16
+
 static int position_y(int n)
 {
     return RENDER_DEBUG_INSIGHT_MARGIN_Y + ((RENDER_DEBUG_INSIGHT_FONT_SIZE + RENDER_DEBUG_INSIGHT_SEPARATOR) * n);
 }
 
-static const char *format_text(char buf[16], const char *s)
+static const char *format_text(char buf[RENDER_DEBUG_TEXT_BUFFER_SIZE], const char *s)
 {
     if (!s)
         s = "< NO-KEY >";
 
-    snprintf(buf, 16, "%-15.15s", s);
+    snprintf(buf, RENDER_DEBUG_TEXT_BUFFER_SIZE, "%-15.15s", s);
 
     return buf;
 }
