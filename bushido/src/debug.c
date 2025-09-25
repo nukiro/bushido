@@ -79,7 +79,6 @@ int debug_init(Configuration *c)
                 }
                 else if (strcmp(current_key, "vsync") == 0)
                 {
-                    // config.vsync = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0);
                 }
                 expecting_value = 0;
             }
