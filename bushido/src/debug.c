@@ -8,7 +8,7 @@
 #include "config.h"
 #include "utils.h"
 
-#define MAX_YAML_KEY_SIZE 256
+#define DEBUG_YAML_KEY_BUFFER_SIZE 256
 
 /**
  * Initializes debug configuration from "debug.yaml".
@@ -49,7 +49,7 @@ int debug_init(Configuration *c)
 
     yaml_parser_set_input_file(&parser, file);
 
-    char current_key[MAX_YAML_KEY_SIZE] = {0};
+    char current_key[DEBUG_YAML_KEY_BUFFER_SIZE] = {0};
     int expecting_value = 0;
 
     // Parse tokens
