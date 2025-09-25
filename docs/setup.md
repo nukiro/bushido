@@ -1,6 +1,6 @@
 # How to Setup the Project
 
-## For Develpment
+## For Development
 
 Update Ubuntu repositories and upgrade.
 
