@@ -17,7 +17,7 @@ An **IDE**: `VSCode`
 
 **GitHub**
 
-Generate SSH Key `ssh-keygen -t ed25519 -C "email@test.com"`, copy it `cat .ssh/id_ed25519.pub` and add it to GitHub account.
+Generate SSH Key `ssh-keygen -t ed25519 -C "email@test.com"`, copy it `cat .ssh/id_ed25519.pub` and add it to GitHub account adding a register for Authentication and Signing type.
 
 Clone the project.
 
