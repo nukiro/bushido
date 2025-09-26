@@ -8,51 +8,6 @@ hr() {
   printf '%*s\n' "$cols" '' | sed 's/ /-/g'
 }
 
-# --- compile with live colored output + summary ---
-compile_and_report_live() {
-  # usage: compile_and_report_live <compiler ...>
-  local tmp rc warn err compiler
-  tmp=$(mktemp)
-
-  # Build command array so we can append "force-color" flags when needed
-  local cmd=( "$@" )
-  compiler="${cmd[0]##*/}"
-
-  # Force colored diagnostics when piped (GCC/Clang)
-  case "$compiler" in
-    *clang*) cmd+=( -fcolor-diagnostics ) ;;
-    *gcc*|*g++*) cmd+=( -fdiagnostics-color=always ); export GCC_COLORS=1 ;;
-  esac
-
-  hr
-
-  # Stream to terminal (with colors) and capture to file
-  # rc is the compiler's exit code, not tee's
-  "${cmd[@]}" 2>&1 | tee "$tmp"
-  rc=${PIPESTATUS[0]}
-
-  hr
-
-  # Count warnings/errors (gcc/clang style)
-  warn=$(grep -ciE '\bwarning:' "$tmp" || true)
-  err=$(grep -ciE '\b(fatal )?error:' "$tmp" || true)
-
-  if [ $rc -eq 0 ] && [ "$warn" -eq 0 ]; then
-    ok "No compilation issues."
-  else
-    [ "$warn" -gt 0 ] && echo "${DIM}Warnings:${RESET} $warn"
-    [ "$err"  -gt 0 ] && echo "${DIM}Errors:${RESET}   $err"
-    if [ $rc -ne 0 ]; then
-      fail "Compiler exited with code $rc."
-    else
-      fail "Build completed with warnings."
-    fi
-  fi
-
-  rm -f "$tmp"
-  return $rc
-}
-
 compile_and_report_live() {
   local tmp rc warn err
   tmp=$(mktemp)
@@ -196,7 +151,7 @@ build_dev() {
 build_test() {
   echo "building for test..."
   echo ""
-  "$CC" "${CFLAGS[@]}" -g -O0 -DTEST -I$INCLUDEDIR -I$TESTSDIR -o dist/tests tests/*.c src/*.c "${LDFLAGS[@]}"
+  "$CC" "${CFLAGS[@]}" -g -O0 -DTEST -I$INCLUDEDIR -I$TESTSDIR -o dist/tests $TESTSDIR/*.c $SOURCEDIR/*.c "${LDFLAGS[@]}"
   echo "running tests..."
   echo ""
   ./dist/tests
