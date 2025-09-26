@@ -9,6 +9,7 @@
 #include "hero.h"
 #include "scene.h"
 #include "fov.h"
+#include "utils.h"
 
 int manager_init(Manager *m, const Configuration *c)
 {
@@ -27,10 +28,8 @@ int manager_init(Manager *m, const Configuration *c)
 
     // allocate scene
     int st = scene_allocate(NULL, &m->scene, c->navigation_scene_init);
-    if (!st)
-    {
+    if (!was_executed_successfully(st))
         return st;
-    }
 
     // init view
     m->fov = (FieldOfVision){0};

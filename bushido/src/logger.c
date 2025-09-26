@@ -98,7 +98,7 @@ int log_init()
     s_fp = fopen("debug.log", "w");
     if (!s_fp)
     {
-        fprintf(stderr, "\x1b[31m[ERROR] {log_open}: %d\x1b[0m\n", STATUS_ERR_FILE_NOT_OPEN);
+        fprintf(stderr, "\x1b[31m[ERROR] {log_init}: %d\x1b[0m\n", STATUS_ERR_FILE_NOT_OPEN);
         return STATUS_ERR_FILE_NOT_OPEN;
     }
     return STATUS_OK;

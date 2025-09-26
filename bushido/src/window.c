@@ -1,5 +1,7 @@
 #include "window.h"
 
+#include <raylib.h>
+
 #include "types.h"
 #include "render.h"
 #include "config.h"

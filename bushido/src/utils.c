@@ -1,8 +1,9 @@
 #include <utils.h>
+#include <common.h>
 
 bool was_executed_successfully(int status)
 {
-    return status == 1;
+    return status == STATUS_OK;
 }
 
 bool is_array_empty(const char *arr, size_t size)

@@ -2,6 +2,10 @@
 
 #include <yaml.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <errno.h>
 
 #include "common.h"
 #include "types.h"
@@ -55,7 +59,16 @@ int debug_init(Configuration *c)
     // Parse tokens
     do
     {
-        yaml_parser_scan(&parser, &token);
+
+        // If scan failures, token is undefined and the loop continues.
+        // This error checks it, handling and cleanup when yaml_parser_scan returns 0.
+        if (!yaml_parser_scan(&parser, &token))
+        {
+            log_error("failed to scan YAML token (error=%d)", parser.error);
+            yaml_parser_delete(&parser);
+            fclose(file);
+            return STATUS_ERR_FILE_DEBUG;
+        }
 
         switch (token.type)
         {
