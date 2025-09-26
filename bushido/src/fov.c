@@ -37,7 +37,7 @@ static Vector3 position(const Vector3 *t, View p, float z)
 
 void fov_init(FieldOfVision *fov, const Volume *v, const Configuration *c)
 {
-    // use in positiion method to get camera Vector3 position
+    // use in position method to get camera Vector3 position
     fov->view = c->fov_view;
 
     Vector3 t = target(v);
