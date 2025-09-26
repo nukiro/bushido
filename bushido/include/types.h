@@ -4,6 +4,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#define NAVIGATION_ID_LENGTH 6 // 5 character plus null terminator
 #define DEBUGGER_NAME_MAX_LENGTH 51
 
 typedef struct Configuration
@@ -33,8 +34,8 @@ typedef struct Game
 
 typedef struct Navigation
 {
-    char current[6];
-    char previous[6];
+    char current[NAVIGATION_ID_LENGTH];
+    char previous[NAVIGATION_ID_LENGTH];
 } Navigation;
 
 typedef struct Window

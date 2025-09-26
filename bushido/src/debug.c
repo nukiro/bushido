@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <strings.h>
 
 #include "common.h"
 #include "types.h"
@@ -64,7 +65,12 @@ int debug_init(Configuration *c)
         // This error checks it, handling and cleanup when yaml_parser_scan returns 0.
         if (!yaml_parser_scan(&parser, &token))
         {
-            log_error("failed to scan YAML token (error=%d)", parser.error);
+            log_error(
+                "failed to scan YAML token: error=%d problem=%s at %lu:%lu",
+                parser.error,
+                parser.problem ? parser.problem : "unknown",
+                (unsigned long)parser.problem_mark.line,
+                (unsigned long)parser.problem_mark.column);
             yaml_parser_delete(&parser);
             fclose(file);
             return STATUS_ERR_FILE_DEBUG;
@@ -83,10 +89,9 @@ int debug_init(Configuration *c)
         case YAML_SCALAR_TOKEN:
             if (!expecting_value)
             {
-                // Copy the key to current_key, ensuring no overflow
-                // strncpy doesnot set the last character to null if the source string is too long
-                // but do not care too much here as we will work with fixed size strings
+                // Note: strncpy does not NUL-terminate if the source string is too long
                 strncpy(current_key, (char *)token.data.scalar.value, sizeof(current_key) - 1);
+                current_key[sizeof(current_key) - 1] = '\0'; // Ensure NUL-termination
             }
             else
             {
@@ -100,15 +105,35 @@ int debug_init(Configuration *c)
                 }
                 else if (strcmp(current_key, "width") == 0)
                 {
+                    char *end_w = NULL;
+                    unsigned long w = strtoul(value, &end_w, 10);
+                    if (end_w == value || *end_w != '\0' || w == 0)
+                    {
+                        log_error("invalid 'width' value: %s", value);
+                        yaml_parser_delete(&parser);
+                        fclose(file);
+                        return STATUS_ERR_FILE_DEBUG;
+                    }
                     c->window_width = atoi(value);
                 }
                 else if (strcmp(current_key, "height") == 0)
                 {
+                    char *end_w = NULL;
+                    unsigned long w = strtoul(value, &end_w, 10);
+                    if (end_w == value || *end_w != '\0' || w == 0)
+                    {
+                        log_error("invalid 'height' value: %s", value);
+                        yaml_parser_delete(&parser);
+                        fclose(file);
+                        return STATUS_ERR_FILE_DEBUG;
+                    }
                     c->window_height = atoi(value);
                 }
                 else if (strcmp(current_key, "vsync") == 0)
                 {
-                    c->vsync = (strcmp(value, "true") == 0 || strcmp(value, "1") == 0) ? true : false;
+                    c->vsync = (strcasecmp(value, "true") == 0 ||
+                                strcasecmp(value, "yes") == 0 ||
+                                strcmp(value, "1") == 0);
                 }
                 else
                 {
@@ -133,14 +158,15 @@ int debug_init(Configuration *c)
 
     fclose(file);
 
+#ifdef DEBUG
     if (is_array_empty(c->debugger, sizeof(c->debugger)))
     {
         DBG("debugger field is empty in configuration");
         log_error("debugger property is empty in debug config file");
         return STATUS_ERR_FILE_DEBUG;
     }
-
     DBG("debugger %s", c->debugger);
+#endif
 
     return STATUS_OK;
 }

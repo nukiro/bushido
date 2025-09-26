@@ -2,21 +2,22 @@
 # GLOBAL SETTINGS
 # =============================================================================
 language: "en-US"
+tone_instructions: "Be brief."
 
 # =============================================================================
 # REVIEWS
 # =============================================================================
 reviews:
-  profile: "chill"
+  profile: "assertive"
   # Approve the review once CodeRabbit’s comments are resolved
   # and no pre-merge checks are in an error state.
-  request_changes_workflow: false
+  request_changes_workflow: true
   # Generate a high level summary of the changes in the PR/MR description.
-  high_level_summary: true
-  high_level_summary_placeholder: "<to be completed>"
-  auto_title_placeholder: ""
+  high_level_summary: false
+  # Include the high level summary in the walkthrough comment.
+  high_level_summary_in_walkthrough: true
   # Post review details on each review.
-  review_status: false
+  review_status: true
   # Set the commit status to 'failure' when the PR cannot be reviewed by CodeRabbit for any reason.
   fail_commit_status: true
   # Generate walkthrough in a markdown collapsible section.
