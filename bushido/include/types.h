@@ -71,7 +71,7 @@ typedef struct Hero
 
 typedef struct Scene
 {
-    char id[6];
+    char id[NAVIGATION_ID_LENGTH];
 } Scene;
 
 typedef struct Manager

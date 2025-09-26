@@ -16,8 +16,10 @@ reviews:
   high_level_summary: false
   # Include the high level summary in the walkthrough comment.
   high_level_summary_in_walkthrough: false
-  # Post review details on each review.
+  # Post review details on each review. Additionally, post a review status when a review is skipped in certain cases.
   review_status: true
+  # Set the commit status to 'pending' when the review is in progress and 'success' when it is complete.
+  commit_status: false
   # Set the commit status to 'failure' when the PR cannot be reviewed by CodeRabbit for any reason.
   fail_commit_status: true
   # Generate walkthrough in a markdown collapsible section.
