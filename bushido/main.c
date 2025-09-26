@@ -23,14 +23,14 @@ int main(void)
 #endif
 
     Game game = {0};
-    if (!game_init(&game))
+    if (!was_executed_successfully(game_init(&game)))
     {
         log_close();
         return 1;
     }
 
     Manager manager = {0};
-    if (!manager_init(&manager, &config))
+    if (!was_executed_successfully(manager_init(&manager, &config)))
     {
         game_close();
         log_close();

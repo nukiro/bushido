@@ -31,9 +31,9 @@ compile_and_report_live() {
   hr
 
   # Strip ANSI before counting (colors don’t confuse grep)
+    # Strip ANSI before counting (colorized diagnostics can split tokens)
   warn=$(sed -r 's/\x1b\[[0-9;]*m//g' "$tmp" | grep -ciE '\bwarning:' || true)
   err=$(sed -r 's/\x1b\[[0-9;]*m//g' "$tmp" | grep -ciE '\b(fatal )?error:' || true)
-
   if [ $rc -eq 0 ] && [ "$warn" -eq 0 ]; then
     printf '%s%s%s %s\n' "$(tput setaf 2 2>/dev/null)" "✅" "$(tput sgr0 2>/dev/null)" "No compilation issues."
   else

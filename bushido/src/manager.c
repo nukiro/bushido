@@ -9,16 +9,17 @@
 #include "hero.h"
 #include "scene.h"
 #include "fov.h"
+#include "utils.h"
 
 int manager_init(Manager *m, const Configuration *c)
 {
-    log_info("manager initializating...");
+    log_info("manager initializing...");
     // init window with config properties
     m->window = (Window){GAME_WINDOW_TITLE, c->window_width, c->window_height};
 
     // init scene navigation
-    snprintf(m->navigation.current, 6, "%s", c->navigation_scene_init);
-    snprintf(m->navigation.previous, 6, "%s", GAME_NAVIGATION_SCENE_NULL);
+    snprintf(m->navigation.current, NAVIGATION_ID_LENGTH, "%s", c->navigation_scene_init);
+    snprintf(m->navigation.previous, NAVIGATION_ID_LENGTH, "%s", GAME_NAVIGATION_SCENE_NULL);
     DBG("navigation scene init: %s", c->navigation_scene_init);
 
     // init hero as it is required in the scene and in the view camera
@@ -27,10 +28,8 @@ int manager_init(Manager *m, const Configuration *c)
 
     // allocate scene
     int st = scene_allocate(NULL, &m->scene, c->navigation_scene_init);
-    if (!st)
-    {
+    if (!was_executed_successfully(st))
         return st;
-    }
 
     // init view
     m->fov = (FieldOfVision){0};
@@ -60,9 +59,9 @@ void it_should_init_close_manager(Test *t)
     Configuration c = {0};
     config_init(&c);
     Manager m = {0};
-    bool status = manager_init(&m, &c);
+    int status = manager_init(&m, &c);
 
-    assert(t, status == 1, "manager_init() should return ok when the manager is initialized");
+    assert(t, status == STATUS_OK, "manager_init() should return ok when the manager is initialized");
     assert(t, strcmp(m.navigation.current, GAME_NAVIGATION_SCENE_INIT) == 0, "manager_init() should initialize the current navigation");
     assert(t, strcmp(m.navigation.previous, GAME_NAVIGATION_SCENE_NULL) == 0, "manager_init() should initialize the previous navigation");
     assert(t, m.scene != NULL, "manager_init() should set scene manager pointer after its allocation");

@@ -1,8 +1,8 @@
 #pragma once
 
-struct Color;
+#include <raylib.h>
 
-#define RENDER_COLOR_BACKGROUND (Color){25, 25, 25, 1}
+#define RENDER_COLOR_BACKGROUND (Color){25, 25, 25, 255}
 #define RENDER_COLOR_ALPHA 100
 #define RENDER_COLOR_DEBUG \
     (Color) { 255, 255, 255, RENDER_COLOR_ALPHA }
