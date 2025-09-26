@@ -4,7 +4,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#define NAVIGATION_ID_LENGTH 6 // 5 character plus null terminator
+#define NAVIGATION_ID_LENGTH 6 // 5 characters plus null terminator
 #define DEBUGGER_NAME_MAX_LENGTH 51
 
 typedef struct Configuration

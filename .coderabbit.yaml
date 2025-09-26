@@ -15,7 +15,7 @@ reviews:
   # Generate a high level summary of the changes in the PR/MR description.
   high_level_summary: false
   # Include the high level summary in the walkthrough comment.
-  high_level_summary_in_walkthrough: true
+  high_level_summary_in_walkthrough: false
   # Post review details on each review.
   review_status: true
   # Set the commit status to 'failure' when the PR cannot be reviewed by CodeRabbit for any reason.
@@ -27,7 +27,7 @@ reviews:
   # Generate sequence diagrams in the walkthrough.
   sequence_diagrams: false
   # Estimate the code review effort in the walkthrough.
-  estimate_code_review_effort: false
+  estimate_code_review_effort: true
   # Generate an assessment of how well the changes address the linked issues in the walkthrough.
   assess_linked_issues: false
   # Include possibly related issues in the walkthrough.
@@ -41,7 +41,8 @@ reviews:
   # Generate a poem in the walkthrough comment.
   poem: false
   # Specify file patterns to include or exclude in a review using glob patterns (e.g., !dist/**, src/**).
-  path_filters: ["!dist/**"]
+  path_filters:
+    ["!dist/**", "!build/**", "!bin/**", "!out/**", "!node_modules/**"]
 
   # Configuration for auto review
   auto_review:
@@ -49,3 +50,5 @@ reviews:
     enabled: true
     # Review draft PRs/MRs.
     drafts: false
+    # Ignore reviewing if the title of the pull request contains any of these keywords (case-insensitive).
+    ignore_title_keywords: ["WIP", "Draft"]

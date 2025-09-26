@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <errno.h>
 #include <strings.h>
+#include <limits.h>
 
 #include "common.h"
 #include "types.h"
@@ -114,20 +114,20 @@ int debug_init(Configuration *c)
                         fclose(file);
                         return STATUS_ERR_FILE_DEBUG;
                     }
-                    c->window_width = atoi(value);
+                    c->window_width = (int)w;
                 }
                 else if (strcmp(current_key, "height") == 0)
                 {
-                    char *end_w = NULL;
-                    unsigned long w = strtoul(value, &end_w, 10);
-                    if (end_w == value || *end_w != '\0' || w == 0)
+                    char *end_h = NULL;
+                    unsigned long h = strtoul(value, &end_h, 10);
+                    if (end_h == value || *end_h != '\0' || h == 0)
                     {
                         log_error("invalid 'height' value: %s", value);
                         yaml_parser_delete(&parser);
                         fclose(file);
                         return STATUS_ERR_FILE_DEBUG;
                     }
-                    c->window_height = atoi(value);
+                    c->window_height = (int)h;
                 }
                 else if (strcmp(current_key, "vsync") == 0)
                 {
