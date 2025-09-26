@@ -1,0 +1,50 @@
+# =============================================================================
+# GLOBAL SETTINGS
+# =============================================================================
+language: "en-US"
+
+# =============================================================================
+# REVIEWS
+# =============================================================================
+reviews:
+  profile: "chill"
+  # Approve the review once CodeRabbit’s comments are resolved
+  # and no pre-merge checks are in an error state.
+  request_changes_workflow: false
+  # Generate a high level summary of the changes in the PR/MR description.
+  high_level_summary: true
+  high_level_summary_placeholder: "<to be completed>"
+  auto_title_placeholder: ""
+  # Post review details on each review.
+  review_status: false
+  # Set the commit status to 'failure' when the PR cannot be reviewed by CodeRabbit for any reason.
+  fail_commit_status: true
+  # Generate walkthrough in a markdown collapsible section.
+  collapse_walkthrough: true
+  # Generate a summary of the changed files in the walkthrough.
+  changed_files_summary: false
+  # Generate sequence diagrams in the walkthrough.
+  sequence_diagrams: false
+  # Estimate the code review effort in the walkthrough.
+  estimate_code_review_effort: false
+  # Generate an assessment of how well the changes address the linked issues in the walkthrough.
+  assess_linked_issues: false
+  # Include possibly related issues in the walkthrough.
+  related_issues: false
+  # Related PRs - Include possibly related pull requests in the walkthrough.
+  related_prs: false
+  # Suggest labels based on the changes in the pull request in the walkthrough.
+  suggested_labels: false
+  # Suggest reviewers based on the changes in the pull request in the walkthrough.
+  suggested_reviewers: false
+  # Generate a poem in the walkthrough comment.
+  poem: false
+  # Specify file patterns to include or exclude in a review using glob patterns (e.g., !dist/**, src/**).
+  path_filters: ["!dist/**"]
+
+  # Configuration for auto review
+  auto_review:
+    # Automatic Review - Automatic code review
+    enabled: true
+    # Review draft PRs/MRs.
+    drafts: false
