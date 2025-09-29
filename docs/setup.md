@@ -52,9 +52,9 @@ For other building options, check [this link](https://github.com/raysan5/raylib/
 sudo apt install libyaml-dev
 ```
 
-Before building it, install it: `bash make.sh install`. Run it once (no need to run it before following builds).
+Before building it, install it: `bash bushido.sh install`. Run it once (no need to run it before following builds).
 
-Compile: `bash make.sh dev`.
+Compile: `bash bushido.sh dev`.
 
 ### Git Configuration
 

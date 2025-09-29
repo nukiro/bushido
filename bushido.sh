@@ -52,7 +52,7 @@ compile_and_report_live() {
 
 usage() {
   cat <<'EOF'
-Usage: ./make <install|dev|test|release> [options]
+Usage: ./bushido <install|dev|test|release> [options]
 
 Options:
   --werror            Add -Werror to CFLAGS
@@ -62,8 +62,8 @@ Options:
   -h, --help          Show this help
 
 Examples:
-  ./make dev --werror
-  ./make test
+  ./bushido dev --werror
+  ./bushido test
 EOF
 }
 
