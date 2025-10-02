@@ -1,9 +1,9 @@
 #include "render.h"
 
 #include "types.h"
-#include "render/rconfig.h"
-#include "render/rdebug.h"
-#include "render/rhero.h"
+#include "render/config.h"
+#include "render/debug.h"
+#include "render/hero.h"
 
 #include <stdio.h>
 
