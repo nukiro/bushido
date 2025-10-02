@@ -1,5 +1,8 @@
 dist/
+bin/
 assets/
 *.log
 bushido.desktop
 debug.yaml
+*.o
+*.d
