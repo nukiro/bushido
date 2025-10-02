@@ -5,3 +5,4 @@ assets/
 bushido.desktop
 debug.yaml
 *.o
+*.d

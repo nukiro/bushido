@@ -2,13 +2,14 @@ CC = gcc
 STD = gnu23
 CFLAGS = -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations
 DFLAGS = -g -Og -DDEBUG
-
+DEPFLAGS = -MMD -MP
 
 # Raylib library
 LRAY = -lyaml -lraylib -lm -ldl -lpthread -lGL -lrt -lX11
 
-SRC = $(shell find bushido/src -name '*.c')
-OBJ = $(SRC:.c=.o)
+SRC   = $(shell find bushido/src -name '*.c')
+OBJ   = $(SRC:.c=.o)
+DEPS  = $(OBJ:.o=.d)
 
 # Main program
 MAIN = main
@@ -33,11 +34,13 @@ object:
 
 %.o: %.c
 	@echo "Compiling: $<"
-	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) -Ibushido/include -c $< -o $@
+	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(DEPFLAGS) -Ibushido/include -c $< -o $@
+
+-include $(DEPS)
 
 clean:
 	@echo "Removing exe and object files."
-	@rm -f $(MAIN) $(OBJ)
+	@rm -f $(MAIN) $(OBJ) $(DEPS)
 	@echo "Done!"
 
 install:

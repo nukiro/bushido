@@ -6,6 +6,7 @@
     "*log": true
   },
   "files.exclude": {
-    "**/*.o": true
+    "**/*.o": true,
+    "**/*.d": true
   }
 }
