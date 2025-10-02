@@ -17,11 +17,10 @@ all: $(MAIN)
 
 # Build main program
 $(MAIN): $(OBJ)
-	@mkdir -p bin
-	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJ) -o bin/$(MAIN) $(LRAY)
+	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJ) -o $(MAIN) $(LRAY)
 
 run: $(MAIN)
-	@./bin/$(MAIN)
+	@./$(MAIN)
 
 source:
 	@find bushido/src -name '*.c'
@@ -37,8 +36,8 @@ object:
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) -Ibushido/include -c $< -o $@
 
 clean:
-	@echo "Removing files in 'bin' and object files."
-	@rm -f bin/$(MAIN) $(OBJ)
+	@echo "Removing exe and object files."
+	@rm -f $(MAIN) $(OBJ)
 	@echo "Done!"
 
 install:
