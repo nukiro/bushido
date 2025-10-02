@@ -12,9 +12,9 @@ OBJ = $(SRC:.c=.o)
 all: bin main run
 
 bin:
-	@mkdir bin
+	@mkdir -p bin
 
-main: $(OBJ)
+main: bin $(OBJ)
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJ) -o bin/main $(LRAY)
 
 run:
