@@ -3,6 +3,8 @@ STD = gnu23
 CFLAGS = -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations
 DFLAGS = -g -Og -DDEBUG
 
+.PHONY: all run source header object clean install
+
 # Raylib library
 LRAY = -lyaml -lraylib -lm -ldl -lpthread -lGL -lrt -lX11
 
@@ -17,17 +19,17 @@ bin:
 main: bin $(OBJ)
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJ) -o bin/main $(LRAY)
 
-run:
+run: main
 	@echo "-------"
 	@./bin/main
 
-s:
+source:
 	@find bushido/src -name '*.c'
 
-h:
+header:
 	@find bushido/include -name '*.h'
 
-o:
+object:
 	@find bushido/src -name '*.o'
 
 %.o: %.c
