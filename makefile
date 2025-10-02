@@ -32,7 +32,7 @@ $(BUILD)/$(TARGET): $(OBJS)
 
 # Build step for C source
 $(BUILD)/%.c.o: %.c
-	@echo '$<'"
+	@echo "Compiling: '$<'"
 	@mkdir -p $(dir $@)
 	@$(CC) -std=$(STD) $(CPPFLAGS) $(DFLAGS) $(CFLAGS) -c $< -o $@
 
