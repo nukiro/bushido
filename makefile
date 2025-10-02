@@ -1,3 +1,7 @@
+SHELL=/bin/bash
+
+override env = dev
+
 CC = gcc
 STD = gnu23
 CFLAGS = -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations
@@ -18,6 +22,8 @@ all: $(MAIN)
 
 # Build main program
 $(MAIN): $(OBJ)
+	@echo "Building for: $(env)"
+	@echo "Latest changes: $?"
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJ) -o $(MAIN) $(LRAY)
 
 run: $(MAIN)
@@ -33,7 +39,6 @@ object:
 	@find bushido/src -name '*.o'
 
 %.o: %.c
-	@echo "Compiling: $<"
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(DEPFLAGS) -Ibushido/include -c $< -o $@
 
 -include $(DEPS)
