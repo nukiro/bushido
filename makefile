@@ -11,7 +11,7 @@ LRAY = -lyaml -lraylib -lm -ldl -lpthread -lGL -lrt -lX11
 SRC = $(shell find bushido/src -name '*.c')
 OBJ = $(SRC:.c=.o)
 
-all: bin main run
+all: bin main
 
 bin:
 	@mkdir -p bin
