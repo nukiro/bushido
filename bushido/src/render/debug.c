@@ -1,9 +1,9 @@
-#include "render/rdebug.h"
+#include "render/debug.h"
 
 #include <stdio.h>
 
 #include "types.h"
-#include "render/rconfig.h"
+#include "render/config.h"
 
 #define RENDER_DEBUG_TEXT_BUFFER_SIZE 16
 

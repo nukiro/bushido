@@ -1,8 +1,8 @@
-#include "render/rutils.h"
+#include "render/utils.h"
 
 #include "types.h"
 #include "common.h"
-#include "render/rconfig.h"
+#include "render/config.h"
 
 void axis(const Volume *v)
 {

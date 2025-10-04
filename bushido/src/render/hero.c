@@ -1,9 +1,9 @@
-#include "render/rhero.h"
+#include "render/hero.h"
 
 #include "types.h"
 
-#include "render/rutils.h"
-#include "render/rconfig.h"
+#include "render/utils.h"
+#include "render/config.h"
 
 static void body(const Volume *v)
 {

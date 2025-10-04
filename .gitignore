@@ -6,3 +6,5 @@ bushido.desktop
 debug.yaml
 *.o
 *.d
+main
+build
