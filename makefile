@@ -26,6 +26,9 @@ DEPS := $(OBJS:.o=.d)
 # These files will have .d instead of .o as the output.
 CPPFLAGS := -I$(PROJECT)/include -MMD -MP
 
+.PHONY: all clean
+all: $(BUILD)/$(TARGET)
+
 # The final build step.
 $(BUILD)/$(TARGET): $(OBJS)
 	@$(CC) -std=$(STD) $(CFLAGS) $(DFLAGS) $(OBJS) -o $@ $(LDFLAGS)
@@ -36,9 +39,8 @@ $(BUILD)/%.c.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) -std=$(STD) $(CPPFLAGS) $(DFLAGS) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean
 clean:
-	@rm -r $(BUILD)
+	@rm -rfS $(BUILD)
 	@echo "build folder deleted"
 
 # Include the .d makefiles. The - at the front suppresses the errors of missing
