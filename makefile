@@ -40,7 +40,7 @@ $(BUILD)/%.c.o: %.c
 	@$(CC) -std=$(STD) $(CPPFLAGS) $(DFLAGS) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rfS $(BUILD)
+	@rm -rf $(BUILD)
 	@echo "build folder deleted"
 
 # Include the .d makefiles. The - at the front suppresses the errors of missing
